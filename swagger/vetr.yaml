@@ -1,0 +1,150 @@
+swagger: '2.0'
+
+info:
+  version: "1.0.0"
+  title: VETR API
+
+schemes:
+  - http
+  - https
+
+produces:
+  - application/json
+  - application/xml
+
+paths:
+  /api/v2/calendar/vetr_url:
+    get:
+      description: |
+        Gets `VETR Watchlist Holdings` objects.
+      parameters:
+        - in: query
+          name: created
+          description: Query by any record created since given value
+          required: false
+          type: number
+        - in: query
+          name: updated
+          description: Query by any record updated since given value
+          required: false
+          type: number
+        - in: query
+          name: ticker
+          description: One or more ticker symbol separate by a comma (,)
+          required: false
+          type: string
+        - in: query
+          name: pagesize
+          description: Number of values to include. Limit varies by client. Default 10
+          required: false
+          type: integer
+          format: int64
+      security:
+        - token: []
+      responses:
+        200:
+          description: Successful response
+          schema:
+            title: ArrayOfUrls
+            type: array
+            items:
+              type: object
+              properties:
+                definitions:
+                  $ref: "#/definitions/vetr_url"
+  /api/v2/calendar/vetr_watchlist_holdings:
+    get:
+      description: |
+        Gets `VETR Watchlist Holdings` objects.
+      parameters:
+        - in: query
+          name: created
+          description: Query by any record created since given value
+          required: false
+          type: number
+        - in: query
+          name: updated
+          description: Query by any record updated since given value
+          required: false
+          type: number
+        - in: query
+          name: ticker
+          description: One or more ticker symbol separate by a comma (,)
+          required: false
+          type: string
+        - in: query
+          name: pagesize
+          description: Number of values to include. Limit varies by client. Default 10
+          required: false
+          type: integer
+          format: int64
+      security:
+        - token: []
+      responses:
+        200:
+          description: Successful response
+          schema:
+            title: ArrayOfHoldings
+            type: array
+            items:
+              type: object
+              properties:
+                definitions:
+                  $ref: "#/definitions/vetr_watchlist_holdings"
+securityDefinitions:
+  token:
+    type: apiKey
+    name: token
+    in: query
+definitions:
+  vetr_url:
+    type: object
+    required:
+      - vetr_id
+      - event
+      - event_type
+      - context_page_path
+      - label
+    properties:
+      vetr_id:
+        type: string
+      event:
+        type: string
+      event_type:
+        type: string
+      context_page_path:
+        type: string
+      label:
+        type: number
+        format: double
+      created:
+        type: number
+        format: double
+      updated:
+        type: number
+        format: double
+  vetr_watchlist_holdings:
+    type: object
+    required:
+      - date
+      - time
+      - ticker
+      - published_to_slug
+      - created_on
+    properties:
+      date:
+        type: string
+        description: Date created
+      time:
+        type: string
+        description: Date created
+      ticker:
+        type: string
+      published_to_slug:
+        type: string
+      created_on:
+        type: number
+        format: double
+      updated:
+        type: number
+        format: double

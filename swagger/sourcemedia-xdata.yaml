@@ -1,0 +1,95 @@
+swagger: '2.0'
+
+info:
+  version: "1.0.0"
+  title: SourceMedia XData API
+
+schemes:
+  - http
+  - https
+
+produces:
+  - application/json
+  - application/xml
+
+paths:
+  /api/v2/calendar/sourcemedia_xdata:
+    get:
+      description: |
+        Gets `SourceMedia XData` objects.
+      parameters:
+        - in: query
+          name: created
+          description: Query by any record created since given value
+          required: false
+          type: number
+        - in: query
+          name: updated
+          description: Query by any record updated since given value
+          required: false
+          type: number
+        - in: query
+          name: page
+          description: Number of values to include. Limit varies by client. Default 10
+          required: false
+          type: integer
+          format: int64
+        - in: query
+          name: pagesize
+          description: Number of values to include. Limit varies by client. Default 10
+          required: false
+          type: integer
+          format: int64
+      security:
+        - token: []
+      responses:
+        200:
+          description: Successful response
+          schema:
+            title: ArrayOfXData
+            type: array
+            items:
+              type: object
+              properties:
+                definitions:
+                  $ref: "#/definitions/sourcemedia_xdata"
+securityDefinitions:
+  token:
+    type: apiKey
+    name: token
+    in: query
+definitions:
+  sourcemedia_xdata:
+    type: object
+    required:
+      - accs_id
+    properties:
+      accs_id:
+        type: string
+        description: a
+      cik:
+        type: integer
+        format: int64
+      regd:
+        type: object
+        required:
+          - accs_id
+        properties:
+          accs_id:
+            type: string
+            description: a
+          cik:
+            type: integer
+            format: int64
+          entityName:
+            type: string
+          street:
+            type: string
+          city:
+            type: string
+      created:
+        type: number
+        format: double
+      updated:
+        type: number
+        format: double
