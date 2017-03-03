@@ -70,6 +70,38 @@ definitions:
       cik:
         type: integer
         format: int64
+      created:
+        type: number
+        format: double
+      updated:
+        type: number
+        format: double
+      xdata_tickers:
+        type: array
+        items:
+          type: object
+          properties:
+            ticker:
+              type: string
+            iso_exchange:
+              type: string
+            isin:
+              type: string
+            morningstar_industry_code:
+              type: integer
+              format: int64
+            morningstar_industry_name:
+              type: string
+            naics_industry_code:
+              type: integer
+              format: int64
+            naics_industry_name:
+              type: string
+            sic_industry_code:
+              type: integer
+              format: int64
+            sic_industry_name:
+              type: string
       regd:
         type: object
         required:
@@ -87,9 +119,197 @@ definitions:
             type: string
           city:
             type: string
-      created:
-        type: number
-        format: double
-      updated:
-        type: number
-        format: double
+          stateOrCnty:
+            type: string
+          zipCode:
+            type: string
+          PhoneNum:
+            type: string
+          jurisdictionOfInc:
+            type: string
+          PrevNameList:
+            type: string
+          edgarPrevNameList:
+            type: string
+          entityType:
+            type: string
+          entityTypeOtherDesc:
+            type: string
+          yearOfInc:
+            type: string
+          yearOfInc_val:
+            type: string
+          indGroupType:
+            type: string
+          issuerSize_revRange:
+            type: string
+          invFundType:
+            type: string
+          is40Act:
+            type: string
+          aggrNetAssetValRange:
+            type: string
+          ExemptExcl:
+            type: string
+          isAmend:
+            type: boolean
+          prevAcsNum:
+            type: string
+          dateOfFirstSale:
+            type: string
+          moreThanOneYear:
+            type: boolean
+          typesOfSecOffered:
+            type: string
+          isBizCombTrans:
+            type: boolean
+          bizCombClarOfResp:
+            type: string
+          minInvAccepted:
+            type: string
+          totalOfferAmnt:
+            type: string
+          totAmntSold:
+            type: string
+          totRemaining:
+            type: string
+          offerclarOfResp:
+            type: string
+          hasNonAccrInv:
+            type: boolean
+          totalNumInvd:
+            type: string
+          salesCommAmnt:
+            type: string
+          findersFeesAmnt:
+            type: string
+          salesCommClarOfResp:
+            type: string
+          grossProceedsUsedAmnt:
+            type: string
+          grossProceedsUsedEst:
+            type: string
+          useOfProceedsClarOfResp:
+            type: string
+          authRep:
+            type: boolean
+          sigIssuerName:
+            type: string
+          sigName:
+            type: string
+          nameOfSigner:
+            type: string
+          sigTitle:
+            type: string
+          sigDate:
+            type: string
+      news:
+        type: object
+        required:
+          - guid
+        properties:
+          guid:
+            type: string
+          pubDate:
+            type: string
+          title:
+            type: string
+          description:
+            type: string
+          link:
+            type: string
+          category:
+            type: string
+          ticker:
+            type: string
+          city:
+            type: string
+          state:
+            type: string
+      stats:
+        type: object
+        required:
+          - accs_id
+        properties:
+          accs_id:
+            type: string
+            description: a
+          cik:
+            type: integer
+            format: int64
+          entityName:
+            type: string
+          street:
+            type: string
+          entity_name:
+            type: string
+          pp_attribute:
+            type: string
+          cur_city:
+            type: string
+          cur_countrySec:
+            type: string
+          cur_state:
+            type: string
+          cur_country_code:
+            type: string
+          cur_country:
+            type: string
+          cur_zipCode:
+            type: string
+          cur_offerDate:
+            type: string
+          cur_firstSaleDate:
+            type: integer
+            format: int64
+          cur_asOfDate:
+            type: string
+          cur_fileDate:
+            type: string
+          cur_docOfferSize:
+            type: string
+          cur_offerSize:
+            type: string
+          cur_countOffering:
+            type: integer
+            format: int64
+          cur_docRaiseSize:
+            type: string
+          cur_raiseSize:
+            type: string
+          cur_countRaise:
+            type: integer
+            format: int64
+          cur_typesofsecoffered:
+            type: string
+          cur_indGroupType:
+            type: string
+          cur_yearOfInc_val:
+            type: string
+          cur_isBizCombTrans:
+            type: string
+          cur_isamend:
+            type: string
+          cur_totEstAmntRsdNMNA:
+            type: integer
+            format: int64
+          cur_totOffCntNMNA:
+            type: integer
+            format: int64
+          cur_totRsdCntNMNA:
+            type: integer
+            format: int64
+          cur_totEstAmntRsdMNA:
+            type: integer
+            format: int64
+          cur_totOffCntMNA:
+            type: integer
+            format: int64
+          cur_totRsdCntMNA:
+            type: integer
+            format: int64
+          cur_score:
+            type: integer
+            format: int64
+          footer:
+            type: string
