@@ -109,100 +109,146 @@ definitions:
         properties:
           accs_id:
             type: string
-            description: a
+            description: SEC document identifier
           cik:
             type: integer
             format: int64
+            description: Central Index Key, SEC company identifier 
           entityName:
             type: string
+            description: Registered name of the filer
           street:
             type: string
+            description: Street address of HQ
           city:
             type: string
+            description: City location of HQ 
           stateOrCnty:
             type: string
+            description: State code (if US or Canadian entity), country code (All other entities) location of HQ (SEC taxonomy) 
           zipCode:
             type: string
+            description: Zip code of HQ location
           PhoneNum:
             type: string
+            description: Phone number as formated by the issuer
           jurisdictionOfInc:
             type: string
+            description: State long description (if US or Canadian entity), country long description (All other entities) location of registration (SEC taxonomy) 
           PrevNameList:
             type: string
+            description: Entity's previous names
           edgarPrevNameList:
             type: string
+            description: Entity's previous names used to file at the SEC under
           entityType:
             type: string
+            description: Legal entity structure (SEC taxonomy)
           entityTypeOtherDesc:
             type: string
+            description: Used by filer for further explanation when the <entityType> selected is "Other"
           yearOfInc:
             type: string
+            description: Denotes if the company was registered within the last five year or not
           yearOfInc_val:
             type: string
+            description: Year of the entity registration if <yearOfInc> withinFiveYears, otherwise value = 0
           indGroupType:
             type: string
+            description: Entity's industry classification (SEC taxonomy)
           issuerSize_revRange:
             type: string
+            description: Entity's revenue range
           invFundType:
             type: string
+            description: Type of investment fund. Used by filer for further details when the <indGroupType> = "Pooled Investment Fund"  (SEC taxonomy)
           is40Act:
             type: string
+            description: Flag to know if the "Pooled Investment Fund" falls under the Investment Company Act of 1940
           aggrNetAssetValRange:
             type: string
+            description: Aggregated net asset value range under management for "Pooled Investment Fund"
           ExemptExcl:
             type: string
+            description: SEC Regulation D exemption the issuer files under
           isAmend:
             type: boolean
+            description: Flag indicating if the filing is an amendment or not. FALSE = new filing (D), TRUE = amendment to a previous filing (D/A)
           prevAcsNum:
             type: string
+            description:  <accs_id> (document identifier) of the filing the present filing is an amendment of
           dateOfFirstSale:
             type: string
+            description: Date at which the securities were sold for the first time. Format YYYYMMDD.
           moreThanOneYear:
             type: boolean
+            description: Length of the offering. TRUE = indefinite, FALSE = one year max
           typesOfSecOffered:
             type: string
+            description: Security type(s) offered under regulation D
           isBizCombTrans:
             type: boolean
+            description: Flag indicating if the security issuance is done in conjunction with a business combination transaction (M&A activity)
           bizCombClarOfResp:
             type: string
+            description: Optinal clarification given related to the M&A transaction
           minInvAccepted:
             type: string
+            description: Minimum investment amount accepted from accredited/QIB investors
           totalOfferAmnt:
             type: string
+            description: Maximum $ amount to be offered to investors
           totAmntSold:
             type: string
+            description: $ amount already sold to investors
           totRemaining:
             type: string
+            description: $ amount remaining to be sold
           offerclarOfResp:
             type: string
+            description: Clarification provided by the issuer related to the offering
           hasNonAccrInv:
             type: boolean
+            description: Have non accredited investors participated to the offering
           totalNumInvd:
             type: string
+            description: Number of investors that participated to the offering
           salesCommAmnt:
             type: string
+            description: Sales commissions paid in connection to the offering
           findersFeesAmnt:
             type: string
+            description: Finders fees paid in connection with the offering
           salesCommClarOfResp:
             type: string
+            description: Clarification provided by the issuer related to the sales commissions and finders fees
           grossProceedsUsedAmnt:
             type: string
+            description: Amount of the gross proceeds of the offering that has been or is proposed to be used for payments to any of the persons required to be named as executive officers, directors or promoters
           grossProceedsUsedEst:
             type: string
+            description: Flag indicating if gross proceeds are estimated
           useOfProceedsClarOfResp:
             type: string
+            description: Clarification provided by the issuer related to the use of proceeds
           authRep:
             type: boolean
+            description: Flag indicating if the person signing is an authorised representative
           sigIssuerName:
             type: string
+            description: Name of the issuer
           sigName:
             type: string
+            description: Name of signing person
           nameOfSigner:
             type: string
+            description: Name of signing person
           sigTitle:
             type: string
+            description: Title of the signing person
           sigDate:
             type: string
+            description: Signature date
       news:
         type: object
         required:
@@ -212,20 +258,27 @@ definitions:
             type: string
           pubDate:
             type: string
+            description: Date at which the document was filed with the SEC
           title:
             type: string
-          description:
+            description: Title of the Form D transaction for which an editorial is available
+          description: 
             type: string
+            description: Complete transaction and company description including embbed company website, source document link and a transaction recap
           link:
             type: string
           category:
             type: string
+            description: Section where all company's categories are provided
           ticker:
             type: string
+            description: If the company is publicly trading on an exchange.
           city:
             type: string
+            description: City where the company's HQ are located
           state:
             type: string
+            description: State where the company's HQ is located
       stats:
         type: object
         required:
@@ -233,10 +286,11 @@ definitions:
         properties:
           accs_id:
             type: string
-            description: a
+            description: SEC document identifier
           cik:
             type: integer
             format: int64
+            description: SEC company identifier 
           entityName:
             type: string
           street:
@@ -247,69 +301,82 @@ definitions:
             type: string
           cur_city:
             type: string
+            description: City location of HQ 
           cur_countrySec:
             type: string
+            description: SEC State or SEC Country code of location of HQ. If the HQ is outside the US or Canada then SEC country code, else SEC state code.
           cur_state:
             type: string
+            description: Full  state name when HQ are in US or Canada, otherwise ''.
           cur_country_code:
             type: string
+            description: Iso 2 digit country code
           cur_country:
             type: string
+            description: Iso country short name
           cur_zipCode:
             type: string
+            description: Zip code of HQ location
           cur_offerDate:
             type: string
+            description: Date that best represents when the offering started. For example it will be the date at which the securities where sold for the first time or when the document was signed if no securities were sold at the time. Format YYYYMMDD.
           cur_firstSaleDate:
             type: integer
             format: int64
+            description: Date at which the securities were sold for the first time. Format YYYYMMDD.
           cur_asOfDate:
             type: string
+            description: Date at which the Form D was signed, validating the accuracy of the information. Format YYYYMMDD.
           cur_fileDate:
             type: string
+            description: Date at which the Form D was filed and date stamped by the SEC. Format YYYYMMDD.
           cur_docOfferSize:
             type: string
+            description: Size (in USD) of offering disclosed in the document.
           cur_offerSize:
             type: string
+            description: Offer size (in USD) increment.
           cur_countOffering:
             type: integer
             format: int64
+            description: 1 when it is a new offering, 0 when it is an amendment
           cur_docRaiseSize:
             type: string
+            description: Amount raised (in USD) disclosed in the document.
           cur_raiseSize:
             type: string
+            description: Increment amount raised (in USD)
           cur_countRaise:
             type: integer
             format: int64
+            description: 1 when money is raised, otherwise 0.
           cur_typesofsecoffered:
             type: string
+            description: Type of securities offered. E= Equity, D= Debt, M= Mezzanine, L= Limited partnership, W= Warrants/options, O= Other (mostly mineral property interests)
           cur_indGroupType:
             type: string
+            description: SEC industry classification 
           cur_yearOfInc_val:
             type: string
+            description: Company's year of registration.
           cur_isBizCombTrans:
             type: string
+            description: Flag. t/f = true/false Securities have been issued in connection with an acquisition or merger transaction.
           cur_isamend:
             type: string
+            description: Flag. t/f = true/false Is the document an amendment.
           cur_totEstAmntRsdNMNA:
             type: integer
             format: int64
+            description: Total estimated $ amount raised by the company (including current amount raised) not including securities issued in conjunction with M&A transactions.
           cur_totOffCntNMNA:
             type: integer
             format: int64
+            description: Total number of offerings (including current offering) initiated by the company not related to an M&A transaction.
           cur_totRsdCntNMNA:
             type: integer
             format: int64
+            description: Total number of fund raising events (including current document). Times the company disclosed raising additional funds via D and amendments.
           cur_totEstAmntRsdMNA:
             type: integer
             format: int64
-          cur_totOffCntMNA:
-            type: integer
-            format: int64
-          cur_totRsdCntMNA:
-            type: integer
-            format: int64
-          cur_score:
-            type: integer
-            format: int64
-          footer:
-            type: string
