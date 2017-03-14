@@ -66,7 +66,7 @@ definitions:
     properties:
       accs_id:
         type: string
-        description: a
+        description: Accession number, the SEC document identifier
       cik:
         type: integer
         format: int64
@@ -109,7 +109,7 @@ definitions:
         properties:
           accs_id:
             type: string
-            description: SEC document identifier
+            description: Accession number, the SEC document identifier
           cik:
             type: integer
             format: int64
@@ -286,7 +286,7 @@ definitions:
         properties:
           accs_id:
             type: string
-            description: SEC document identifier
+            description: Accession number, the SEC document identifier
           cik:
             type: integer
             format: int64
