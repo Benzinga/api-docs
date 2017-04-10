@@ -1,12 +1,10 @@
-swagger: '2.0'
-
 info:
   version: "1.0.0"
   title: SourceMedia XData API
 
-schemes:
-  - http
-  - https
+# schemes:
+#   - http
+#   - https
 
 produces:
   - application/json
@@ -85,23 +83,31 @@ definitions:
               type: string
             iso_exchange:
               type: string
+              description: Unique identification code used to identify securities trading exchanges
             isin:
               type: string
+              description: Security identification number
             morningstar_industry_code:
               type: integer
               format: int64
+              description: Industry code given by Morningstar
             morningstar_industry_name:
               type: string
+              description: Industry name given by Morningstar
             naics_industry_code:
               type: integer
               format: int64
+              description: Unique industry code given by NAICS
             naics_industry_name:
               type: string
+              description: Unique industry name given by NAICS
             sic_industry_code:
               type: integer
               format: int64
+              description: Unique industry code given by SIC
             sic_industry_name:
               type: string
+              description: Unique industry name given by SIC
       regd:
         type: object
         required:
@@ -109,7 +115,7 @@ definitions:
         properties:
           accs_id:
             type: string
-            description: Accession number, the SEC document identifier
+            description: Document ID (Accession ID) of the root document the filing is related to
           cik:
             type: integer
             format: int64
@@ -146,7 +152,7 @@ definitions:
             description: Legal entity structure (SEC taxonomy)
           entityTypeOtherDesc:
             type: string
-            description: Used by filer for further explanation when the <entityType> selected is "Other"
+            description: Clarification provided by the issuer when the regd_entity Type = Other
           yearOfInc:
             type: string
             description: Denotes if the company was registered within the last five year or not
@@ -176,7 +182,7 @@ definitions:
             description: Flag indicating if the filing is an amendment or not. FALSE = new filing (D), TRUE = amendment to a previous filing (D/A)
           prevAcsNum:
             type: string
-            description:  <accs_id> (document identifier) of the filing the present filing is an amendment of
+            description:  Document ID (Accession ID) of the filing the present filing is an amendment of
           dateOfFirstSale:
             type: string
             description: Date at which the securities were sold for the first time. Format YYYYMMDD.
@@ -188,10 +194,10 @@ definitions:
             description: Security type(s) offered under regulation D
           isBizCombTrans:
             type: boolean
-            description: Flag indicating if the security issuance is done in conjunction with a business combination transaction (M&A activity)
+            description: Flag indicating if the security issuance is done in conjunction with a business combination transaction (True/False)
           bizCombClarOfResp:
             type: string
-            description: Optinal clarification given related to the M&A transaction
+            description: Optional clarification provided by the issuer related to the business combination transaction
           minInvAccepted:
             type: string
             description: Minimum investment amount accepted from accredited/QIB investors
@@ -209,7 +215,7 @@ definitions:
             description: Clarification provided by the issuer related to the offering
           hasNonAccrInv:
             type: boolean
-            description: Have non accredited investors participated to the offering
+            description: Flag indicating if non accredited investors participated to the offering (True/False)
           totalNumInvd:
             type: string
             description: Number of investors that participated to the offering
@@ -227,28 +233,28 @@ definitions:
             description: Amount of the gross proceeds of the offering that has been or is proposed to be used for payments to any of the persons required to be named as executive officers, directors or promoters
           grossProceedsUsedEst:
             type: string
-            description: Flag indicating if gross proceeds are estimated
+            description: Flag indicating if gross proceeds are estimated (True/False)
           useOfProceedsClarOfResp:
             type: string
-            description: Clarification provided by the issuer related to the use of proceeds
+            description: Clarification provided by the issuer related to the sales commissions and finders fees
           authRep:
             type: boolean
-            description: Flag indicating if the person signing is an authorised representative
+            description: Flag indicating if the person signing is an authorised representative (True/False)
           sigIssuerName:
             type: string
             description: Name of the issuer
           sigName:
             type: string
-            description: Name of signing person
+            description: Name of the individual/company who signed the document/SEC form
           nameOfSigner:
             type: string
-            description: Name of signing person
+            description: Name of the individual who signed the document/SEC form
           sigTitle:
             type: string
-            description: Title of the signing person
+            description: Title of the individual who signed the document/SEC form
           sigDate:
             type: string
-            description: Signature date
+            description: Date at which the document was signed 
       news:
         type: object
         required:
@@ -256,6 +262,7 @@ definitions:
         properties:
           guid:
             type: string
+            description: Document ID (Accession ID) the news is related to
           pubDate:
             type: string
             description: Date at which the document was filed with the SEC
@@ -267,12 +274,13 @@ definitions:
             description: Complete transaction and company description including embbed company website, source document link and a transaction recap
           link:
             type: string
+            description: Link to the article on Xdata's website
           category:
             type: string
             description: Section where all company's categories are provided
           ticker:
             type: string
-            description: If the company is publicly trading on an exchange.
+            description: Security ticker. If security ticker available, format = "Exchange:Ticker"
           city:
             type: string
             description: City where the company's HQ are located
@@ -293,12 +301,16 @@ definitions:
             description: SEC company identifier 
           entityName:
             type: string
+            description: Name of company/individual
           street:
             type: string
+            description: Street name of HQ
           entity_name:
             type: string
+            description: Name of the issuer
           pp_attribute:
             type: string
+            description: Indicates if the issuer is publicly traded or private
           cur_city:
             type: string
             description: City location of HQ 
@@ -368,15 +380,16 @@ definitions:
           cur_totEstAmntRsdNMNA:
             type: integer
             format: int64
-            description: Total estimated $ amount raised by the company (including current amount raised) not including securities issued in conjunction with M&A transactions.
+            description: Estimated USD amount of securities issued in conjunction with M&A transactions
           cur_totOffCntNMNA:
             type: integer
             format: int64
-            description: Total number of offerings (including current offering) initiated by the company not related to an M&A transaction.
+            description: Total number of offerings initiated by the issuer in conjunction with M&A transaction
           cur_totRsdCntNMNA:
             type: integer
             format: int64
-            description: Total number of fund raising events (including current document). Times the company disclosed raising additional funds via D and amendments.
+            description: Number of times the issuer reported raising money in conjunction with M&A transactions
           cur_totEstAmntRsdMNA:
             type: integer
             format: int64
+            description: Estimated USD amount of securities issued in conjunction with M&A transactions
