@@ -2,10 +2,6 @@ info:
   version: "1.0.0"
   title: SourceMedia XData API
 
-# schemes:
-#   - http
-#   - https
-
 produces:
   - application/json
   - application/xml
