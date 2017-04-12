@@ -390,3 +390,14 @@ definitions:
             type: integer
             format: int64
             description: Estimated USD amount of securities issued in conjunction with M&A transactions
+          cur_totOffCntMNA:
+            type: integer
+            format: int64
+            description: Total number of offerings initiated by the company related to an M&A transaction.
+          cur_totRsdCntMNA:
+            type: integer
+            format: int64
+            description: Total number of security issuance events initiated by the company related to an M&A transaction.
+          cur_score:
+            type: string
+            description: Compliance score (ranging from 100 to 0) related to the filings and information disclosed within the filings. Is taking into account tardiness, size of the offering, maturity of the company, exemptions rules filed under etc…100 is the best score.
