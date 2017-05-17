@@ -1,0 +1,144 @@
+swagger: "2.0"
+info:
+  version: "2.0.0"
+  title: "Benzinga Newsfeed REST API v2"
+  description: "Benzinga Newsfeed REST API"
+host: "api.benzinga.com"
+basePath: "/api/v2"
+schemes: 
+- "http"
+- "https"
+security:
+- token: []
+paths:
+  /news:
+    get:
+      summary: "Get the news items"
+      parameters:
+      - name: accept
+        in: header
+        type: string
+        description: Specify return format.
+        enum: ["application/json","application/xml"]
+      - name: pageSize
+        in: query
+        type: integer
+        description: The number of results returned per query.
+        default: 15
+        maximum: 100
+      - name: page
+        in: query
+        type: integer
+        description: The page offset.
+        default: 0
+      - name: displayOutput
+        in: query
+        type: string
+        description: "Specify headline only, headline + teaser, or headline + full body text"
+        default: headline
+        enum: ["full","abstract","headline"]
+      - name: date
+        in: query
+        type: string
+        format: "yyyy-mm-dd"
+        description: The date to query for calendar data. Shorthand for date_from and date_to if they are the same.
+      - name: dateFrom
+        in: query
+        type: string
+        format: "yyyy-mm-dd"
+        description: Date to query from point in time and sorted by published date.
+      - name: dateTo
+        in: query
+        type: string
+        format: "yyyy-mm-dd"
+        description: Date to query to point in time and sorted by published date.
+      - name: lastId
+        in: query
+        type: integer
+        description: The last ID to start paging from and sorted by and sorted by the last updated date.
+      - name: updatedSince
+        in: query
+        type: integer
+        format: Unix timestamp
+        description: The last updated Unix timestamp (UTC) to pull and sort by.
+      - name: publishedSince
+        in: query
+        type: integer
+        format: Unix timestamp
+        description: The last published Unix timestamp (UTC) to pull and sort by.
+      - name: tickers
+        in: query
+        type: string
+        format: csv
+        description: One or more ticker symbols separated by a comma
+      - name: channels
+        in: query
+        type: string
+        format: csv
+        description: One or more channels separated by a comma
+      responses:
+        200:
+          description: "success"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/BenzingaStory"
+    
+securityDefinitions:
+  token:
+    type: apiKey
+    name: "token"
+    in: query
+
+definitions:
+    BenzingaStory:
+      type: object
+      properties:
+        id:
+          type: integer
+        author:
+          type: string
+        created:
+          type: string
+          format: Wed, 17 May 2017 14:20:15 -0400
+        updated:
+          type: string
+          format: Wed, 17 May 2017 14:20:15 -0400
+        title:
+          type: string
+        teaster:
+          type: string
+        body:
+          type: string
+        url:
+          type: string
+        image:
+          type: array
+          items:
+            type: object
+            properties:
+              size:
+                type: string
+              url:
+                type: string
+        channels:
+          type: array
+          items:
+          - type: object
+            properties:
+              name:
+                type: string
+        stocks:
+          type: array
+          items:
+          - type: object
+            properties:
+              name:
+                type: string
+        tags:
+          type: array
+          items:
+          - type: object
+            properties:
+              name:
+                type: string
