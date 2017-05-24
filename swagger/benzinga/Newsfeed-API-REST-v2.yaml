@@ -96,24 +96,33 @@ definitions:
       properties:
         id:
           type: integer
+          description: The unique identifier of the article. This identifier is also found in the path of url on benzinga.com.
         author:
           type: string
+          description: The author of the article. This could be a Benzinga journalist, news desk analyst or contributor on benzinga.com.
         created:
           type: string
+          description: The moment the article is created. The time zone is Greenwich Mean Time (GMT) - 4:00, commonly know as Eastern Time (ET). This time stamp will not change.
           format: Wed, 17 May 2017 14:20:15 -0400
         updated:
           type: string
+          description: The timestamp of the last update to the article. The time zone is Greenwich Mean Time (GMT) - 4:00, commonly know as Eastern Time (ET). This time stamp has the ability to change one or many times, updating each time an update is pushed to the article.
           format: Wed, 17 May 2017 14:20:15 -0400
         title:
           type: string
+          description: The headline of the article. This will only be plain text.
         teaster:
           type: string
+          description: Depending on where the content is originated from (Benzinga.com or Benzinga Pro Terminal) the teaser functions in different ways. If the article is a full length article from Benzinga.com, where the body field is filled out, this will be the first sentence of the article up to 256 characters. If this is a Benzinga Pro headline, this will function like the body of an article and provide additional context to the headline, usually no more than a few paragraphs. This field can contain html and html encoded characters such as '&quot' etc.
         body:
           type: string
+          description: The article content. This field can contain html and html encoded characters such as 'quot' etc.
         url:
           type: string
+          description: The url where the article lives on Benzinga.com. If this is a pro headline, it will take the user to a shortened headline with a paywall to purchase the Benzinga Pro terminal, so use with caution.
         image:
           type: array
+          description: The featured image related to the article, if applicable. Benzinga Pro headlines will not contain a featured image.
           items:
             type: object
             properties:
@@ -123,6 +132,7 @@ definitions:
                 type: string
         channels:
           type: array
+          description: The topic(s) or categories that relate to the article. Channels can have sub-channels, but they will all be listed as their own item and not as a sub-level of the array.
           items:
           - type: object
             properties:
@@ -130,6 +140,7 @@ definitions:
                 type: string
         stocks:
           type: array
+          description: The stock symbols that are listed within the article body. This will not display competitor symbols unless they are specifically referenced in the article.
           items:
           - type: object
             properties:
@@ -137,6 +148,7 @@ definitions:
                 type: string
         tags:
           type: array
+          description: Additional tags that are not channels or categories, but are reoccuring themes including, but not limited to; analyst names, bills being talked about in Congress (Dodd-Frank), specific products (iPhone), politicians, celebrities, stock movements (i.e. 'Mid-day Losers' & 'Mid-day Gainers').
           items:
           - type: object
             properties:
