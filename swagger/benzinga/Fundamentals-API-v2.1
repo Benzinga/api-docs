@@ -1,0 +1,891 @@
+swagger: "2.0"
+info:
+  version: "2.0.0"
+  title: Benzinga Fundamentals API
+  description: Get financials, earnings ratios, financial ratios, and company data.
+host: "api.benzinga.com"
+basePath: /api/v2
+schemes:
+  - http
+  - https
+produces:
+  - application/json
+  - application/xml
+security:
+  - token: []
+paths:
+  /fundamentals:
+    get:
+      summary: "Get all of the available company data. Although symbols, isin, and cik are technically optional, if no parameters are included with the response, the result will be empty"
+      parameters:
+        - $ref: '#/parameters/accept'
+        - $ref: '#/parameters/symbols'
+        - $ref: '#/parameters/isin'
+        - $ref: '#/parameters/cik'
+        - $ref: '#/parameters/asOf'
+      responses:
+        "200":
+          description: "An object including a response array containing an array of objects containing company data"
+          schema:
+            $ref: '#/definitions/FundamentalsResponse'
+
+  /fundamentals/valuationRatios:
+    get:
+      summary: "Returns the valuation ratios"
+      parameters:
+        - $ref: '#/parameters/accept'
+        - $ref: '#/parameters/symbols'
+        - $ref: '#/parameters/isin'
+        - $ref: '#/parameters/cik'
+        - $ref: '#/parameters/asOf'
+      responses:
+        "200":
+          description: "An object including a response that includes valuationRatio data"
+          schema:
+            $ref: '#definitions/FundamentalsValuationRatiosResponse'
+
+  /fundamentals/earningRatios:
+    get:
+      summary: "Returns the earning ratios"
+      parameters:
+        - $ref: '#/parameters/accept'
+        - $ref: '#/parameters/symbols'
+        - $ref: '#/parameters/isin'
+        - $ref: '#/parameters/cik'
+        - $ref: '#/parameters/asOf'
+      responses:
+        "200":
+          description: "An object including a response that includes valuationRatio data"
+          schema:
+            $ref: '#definitions/FundamentalsEarningRatiosResponse'
+
+
+  /fundamentals/operationRatios:
+    get:
+      summary: "Returns the operation ratios"
+      parameters:
+        - $ref: '#/parameters/accept'
+        - $ref: '#/parameters/symbols'
+        - $ref: '#/parameters/isin'
+        - $ref: '#/parameters/cik'
+        - $ref: '#/parameters/asOf'
+      responses:
+        "200":
+          description: "An object including a response that includes operationRatio data"
+          schema:
+            $ref: '#definitions/FundamentalsOperationRatiosResponse'
+
+  /fundamentals/financials:
+    get:
+      summary: "Get the balance sheet and cashflow statement for a company. Although symbols, isin, and cik are technically optional, if no parameters are included with the response, the result will be empty"
+      parameters:
+        - $ref: '#/parameters/accept'
+        - $ref: '#/parameters/symbols'
+        - $ref: '#/parameters/isin'
+        - $ref: '#/parameters/cik'
+        - $ref: '#/parameters/asOf'
+        - $ref: '#/parameters/period'
+        - $ref: '#/parameters/reportType'
+      responses:
+        "200":
+          description: "An object including a response array containing an array of objects containing company data"
+          schema:
+            $ref: '#/definitions/FundamentalsFinancialsResponse'
+
+securityDefinitions:
+  token:
+    type: apiKey
+    name: "token"
+    in: query
+
+definitions:
+  FundamentalsResponse:
+    type: object
+    properties:
+      result:
+        type: array
+        items:
+          type: object
+          properties:
+            company:
+              $ref: '#/definitions/company'
+            companyProfile:
+              $ref: '#/definitions/companyProfile'
+            shareClass:
+              $ref: '#/definitions/shareClass'
+            earningsReports:
+              $ref: '#/definitions/earningsReports'
+            financialStatements:
+              $ref: '#/definitions/financialStatements'
+            valuationRatios:
+              $ref: '#/definitions/valuationRatios'
+            operationRatios:
+              $ref: '#/definitions/operationRatios'
+            alphaBeta:
+              $ref: '#/definitions/alphaBeta'
+            processingTimeMillis:
+              type: integer
+
+  FudametalsEarningRatiosResponse:
+    type: object
+    properties:
+      result:
+        type: array
+        items:
+          type: object
+          properties:
+            company:
+              $ref: '#/definitions/company'
+            earningRatios: 
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: object
+                    properties:
+                      shareClassId:
+                        type: string
+                      asOf:
+                        type: string
+                        format: YYY-MM-DD
+                      reportType:
+                        type: string
+                      period:
+                        type: string
+                      aorOrRestate:
+                        type: string
+                  fiscalYearEnd:
+                    type: integer
+                  dilutedEpsGrowth:
+                    type: number
+                    format: float
+                  dilutedConstEpsGrowth:
+                    type: number
+                    format: float
+                  dpsGrowth:
+                    type: number
+                    format: float
+                  equityPerShareGrowth:
+                    type: number
+                    format: float
+            symbol:
+              type: string
+            idType:
+              type: string
+            id:
+              type: string
+      processingTimeMillis:
+        type: integer
+            
+  FundamentalsValuationRatiosResponse:
+    type: object
+    properties:
+      result:
+        type: array
+        items:
+          type: object
+          properties:
+            valuationRatios:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: object
+                  properties:
+                    shareClassId:
+                      type: string
+                    date:
+                      type: string
+                      format: YYYY-MM-DD
+                payoutRatio:
+                  type: number
+                  format: float
+                sustainableGrowthRate:
+                  type: number
+                  format: float
+                cashReturn:
+                  type: number
+                  format: float
+                salesPerShare:
+                  type: number
+                  format: float
+                bookValuePerShare:
+                  type: number
+                  format: float
+                cfoPerShare:
+                  type: number
+                  format: float
+                fcfPerShare:
+                  type: number
+                  format: float
+                earningYield:
+                  type: number
+                  format: float
+                peRatio:
+                  type: number
+                  format: float
+                salesYield:
+                  type: number
+                  format: float
+                psRatio:
+                  type: number
+                  format: float
+                bookValueYield:
+                  type: number
+                  format: float
+                pbRatio:
+                  type: number
+                  format: float
+                cfYield:
+                  type: number
+                  format: float
+                pcfRatio:
+                  type: number
+                  format: float
+                fcfYield:
+                  type: number
+                  format: float
+                fcfRatio:
+                  type: number
+                  format: float
+                trailingDividendYield:
+                  type: number
+                  format: float
+                forwardDividendYield:
+                  type: number
+                  format: float
+                forwardEarningYield:
+                  type: number
+                  format: float
+                forwardPeRatio:
+                  type: number
+                  format: float
+                pegRatio:
+                  type: number
+                  format: float
+                pegPayback:
+                  type: number
+                  format: float
+                tangibleBookValuePerShare:
+                  type: number
+                  format: float
+                tangibleBvPerShare3YrAvg:
+                  type: number
+                  format: float
+                tangibleBvPerShare5YrAvg:
+                  type: number
+                  format: float
+                forwardDividend:
+                  type: number
+                  format: float
+                workingCapitalPerShare:
+                  type: number
+                  format: float
+                workingCapitalPerShare3YrAvg:
+                  type: number
+                  format: float
+                workingCapitalPerShare5YrAvg:
+                  type: number
+                  format: float
+                evToEbitda:
+                  type: number
+                  format: float
+                buyBackYield:
+                  type: number
+                  format: float
+                totalYield:
+                  type: number
+                  format: float
+                ratioPe5YearAverage:
+                  type: number
+                  format: float
+                priceChange1M:
+                  type: number
+                  format: float
+                normalizedPeRatio:
+                  type: number
+                  format: float
+                pricetoEbitda:
+                  type: number
+                  format: float
+
+  FundamentalsOperationRatiosResponse:
+    type: object
+    properties:
+      result:
+        type: array
+        items:
+          type: object
+          properties:
+            company:
+              $ref: '#/definitions/company'
+            operationRatios:
+              3M:
+                $ref: '#/definitions/operationRatio'
+              6M:
+                $ref: '#/definitions/operationRatio'
+              9M:
+                $ref: '#/definitions/operationRatio'
+              1Y:
+                $ref: '#/definitions/operationRatio'
+
+  FundamentalsFinancialsResponse:
+    type: object
+    properties:
+      result:
+        type: array
+        items:
+          type: object
+          properties:
+            company:
+              $ref: '#/definitions/company'
+            financials:
+              $ref: '#/definitions/financials'
+  company:
+    type: object
+    properties:
+      primarySymbol:
+        type: string
+      primaryExchange:
+        type: string
+      cik:
+        type: string
+      valoren:
+        type: string
+      sedol:
+        type: string
+      standardName:
+        type: string
+
+  companyProfile:
+    type: object
+    properties:
+      companyStatus:
+        type: string
+      countryId:
+        type: string
+      fiscalYearEnd:
+        type: string
+      shortName:
+        type: string
+      standardName:
+        type: string
+      address1:
+        type: string
+      city:
+        type: string
+      country:
+        type: string
+      fax:
+        type: string
+      homepage:
+        type: string
+      phone:
+        type: string
+      postalCode:
+        type: string
+      province:
+        type: string
+      legalName:
+        type: string
+      shortDescription:
+        type: string
+      longDescription:
+        type: string
+
+  shareClass:
+    type: object
+    properties:
+      currency:
+        type: string
+      ipoDate:
+        type: string
+        format: Unix timestamp
+      isDepositaryRecipt:
+        type: boolean
+      isPrimary:
+        type: boolean
+      securityType:
+        type: string
+      enterpriseValue:
+        type: integer
+      marketCap:
+        type: integer
+      
+  earningsReports:
+    type: object
+    properties:
+      6M:
+        $ref: '#/definitions/earningsReport'
+      3M:
+        $ref: '#/definitions/earningsReport'
+      12M:
+        $ref: '#/definitions/earningsReport'
+
+  earningsReport:
+    type: object
+    properties:
+      period:
+        type: string
+      asOf:
+        type: string
+      reportType:
+        type: string
+      currency:
+        type: string
+      fiscalYearEnd:
+        type: string
+      basicContinuousOperations:
+        type: number
+        format: float
+      continuingAndDiscontinuedBasicEPS:
+        type: number
+        format: float
+      continuingAndDiscontinuedDilutedEPS:
+        type: number
+        format: double
+      dilutedAverageShares:
+        type: integer
+        format: int64
+      dilutedContinuousOperations:
+        type: integer
+        format: int64
+      dilutedEPS:
+        type: number
+        format: float
+      dividendPerShare:
+        type: number
+        format: float
+      basicAverageShares:
+        type: integer
+        format: int64
+    
+  financialStatements:
+    type: object
+    properties:
+      6M:
+        $ref: '#/definitions/financialStatement'
+      3M:
+        $ref: '#/definitions/financialStatement'   
+      12M:
+        $ref: '#/definitions/financialStatement'
+
+  financialStatement:
+    type: object
+    properties:
+      cashFlowStatement:
+        type: object
+        properties:
+          income:
+            type: integer
+            format: int64
+          changeInReceivables:
+            type: integer
+            format: int64
+          changesInAccountReceivables:
+            type: integer
+            format: int64
+          changeInInventory:
+            type: integer
+            format: int64
+          changeInOtherWorkingCapital:
+            type: integer
+            format: int64
+          capitalExpenditure:
+            type: integer
+            format: int64
+          cashDividendsPaid:
+            type: integer
+            format: int64
+          freeCashFlow:
+            type: integer
+            format: int64
+          financingCashFlow:
+            type: integer
+            format: int64
+          changesInCash:
+            type: integer
+            format: int64
+      asOf:
+        type: string
+        format: YYYYMMDD
+      incomeStatement:
+        type: object
+        properties:
+          revenue:
+            type: integer
+            format: int64
+          costOfRevenue:
+            type: integer
+            format: int64
+          grossProfit:
+            type: integer
+            format: int64
+          researchAndDevelopment:
+            type: integer
+            format: int64
+          EBITDA:
+            type: integer
+            format: int64
+          operatingIncome:
+            type: integer
+            format: int64
+          sellingGeneralAndAdministration:
+            type: integer
+            format: int64
+          netIncomeContinuousOperations:
+            type: integer
+            format: int64
+          otherIncomeExpense:
+            type: integer
+            format: int64
+          netIncome:
+            type: integer
+            format: int64
+          netIncomeCommonStockholders:
+            type: integer
+            format: int64
+
+  valuationRatios:
+    type: object
+    properties:
+      bookValuePerShare:
+        type: number
+        format: float
+      bookValueYield:
+        type: number
+        format: float
+      CFYield:
+        type: number
+        format: float
+      cashReturn:
+        type: number
+        format: float
+      dividendYield:
+        type: number
+        format: float
+      earningYield:
+        type: number
+        format: float
+      FCFPerShare:
+        type: number
+        format: float
+      FCFRatio:
+        type: number
+        format: float
+      FCFYield:
+        type: number
+        format: float
+      forwardEarningYield:
+        type: number
+        format: float
+      forwardPERatio:
+        type: number
+        format: float
+      PBRatio:
+        type: number
+        format: float
+      PCFRatio:
+        type: number
+        format: float
+      PEGPayback:
+        type: number
+        format: float
+      PERatio:
+        type: number
+        format: float
+      PSRatio:
+        type: number
+        format: float
+      payoutRatio:
+        type: number
+        format: float
+      salesPerShare:
+        type: number
+        format: float
+      salesYield:
+        type: number
+        format: float
+      sustainableGrowthRate:
+        type: number
+        format: float
+
+  operationRatios:
+    type: object
+    properties:
+      9M: 
+        $ref: '#/definitions/operationRatio'
+      6M:
+        $ref: '#/definitions/operationRatio'
+      1Y: 
+        $ref: '#/definitions/operationRatio'
+      3M: 
+        $ref: '#/definitions/operationRatio'
+    description: Different periods may be returned for different companies
+
+  operationRatio:
+    type: object
+    description: Some periods might not include all fields
+    properties:
+      period:
+        type: string
+      fiscalYearEnd:
+        type: string
+      reportType:
+        type: string
+      assetsTurnover:
+        type: number
+        format: float
+      capExSalesRatio:
+        type: number
+        format: float
+      cashConversionCycle:
+        type: number
+        format: float
+      daysInInventory:
+        type: number
+        format: float
+      daysInPayment:
+        type: number
+        format: float
+      daysInSales:
+        type: number
+        format: float
+      EBITDAMargin:
+        type: number
+        format: float
+      EBITMargin:
+        type: number
+        format: float
+      FCFNetIncomeRatio:
+        type: number
+        format: float
+      FCFSalesRatio:
+        type: number
+        format: float
+      fixAssetTurnover:
+        type: number
+        format: float
+      grossMargin:
+        type: number
+        format: float
+      interestCoverage:
+        type: number
+        format: float
+      netIncomeContOpsGrowth:
+        type: number
+        format: float
+      netIncomeGrowth:
+        type: number
+        format: float
+      netMargin:
+        type: number
+        format: float
+      normalizedNetProfitMargin:
+        type: number
+        format: float
+      operationIncomeGrowth:
+        type: number
+        format: float
+      operationMargin:
+        type: number
+        format: float
+      operationRevenueGrowth3MonthAvg:
+        type: number
+        format: float
+      pretaxMargin:
+        type: number
+        format: float
+      quickRatio:
+        type: number
+        format: float
+      ROA:
+        type: number
+        format: float
+      ROE:
+        type: number
+        format: float
+      ROIC:
+        type: number
+        format: float        
+      receivableTurnover:
+        type: number
+        format: float
+      revenueGrowth:
+        type: number
+        format: float
+      salesPerEmployee:
+        type: number
+        format: float
+      taxRate:
+        type: number
+        format: float
+      totalDebtEquityRatio:
+        type: number
+        format: float
+
+  alphaBeta:
+    type: object
+    properties:
+      "60M":
+        $ref: '#/definitions/alphaBetaObj'
+      "120M":
+        $ref: '#/definitions/alphaBetaObj'
+      "36M":
+        $ref: '#/definitions/alphaBetaObj'
+
+  alphaBetaObj:
+    type: object
+    properties:
+      period:
+        type: string
+      asOf:
+        type: string
+      alpha:
+        type: number
+        format: double
+      beta:
+        type: number
+        format: double
+
+  financials:
+    type: array
+    items:
+      type: object
+      properties:
+        asOf:
+          type: string
+        period:
+          type: string
+        reportType:
+          type: string
+        aorOrRestate:
+          type: string
+        balanceSheet:
+          type: object
+          properties:
+            id:
+              type: object
+              properties:
+                companyId:
+                  type: string
+                asOf:
+                  type: string
+                reportType:
+                  type: string
+                period:
+                  type: string
+                aorOrRestate:
+                  type: string
+            fiscalYearEnd:
+              type: integer
+            currencyId:
+              type: string
+            isCalculated:
+              type: boolean
+            periodEndingDate:
+              type: string
+            accountsPayable:
+              type: integer
+            accountsReceivable:
+              type: integer
+            currentAccruedExpences:
+              type: integer
+            accumulateDepreciation:
+              type: integer
+            additionalPaidInCapital:
+              type: integer
+            capitalStock:
+              type: integer
+            cashAndCashEquivalents:
+              type: integer
+            cashCashEquivalentAndMarketableSecurities:
+              type: integer
+            commonStock:
+              type: integer
+            currentAssets:
+              type: integer
+            currentDebtAndCapitalLeaseOblication:
+              type: integer
+            currentLiabilities:
+              type: integer
+            currentCapitalLeaseObligation:
+              type: integer
+            nonCurrentDeferredLiabilities:
+              type: integer
+            currentDeferredLiabilities:
+              type: integer
+            currentDeferredRevenue:
+              type: integer
+            nonCurrentDeferredRevenue:
+              type: integer
+            grossPpe:
+              type: integer
+            inventory:
+              type: integer
+            longTermDebt:
+              type: integer
+
+
+parameters:
+  accept:
+    name: accept
+    in: header
+    description: Specifies return format
+    type: string
+    enum:
+      - application/json
+      - application/xml
+  symbols:
+    name: symbols
+    in: query
+    description: One or more stock ticker symbol in comma separated list specifies company data to return
+    type: string
+    format: csv
+  isin:
+    name: isin
+    in: query
+    description: One or more isin identifier in comma separated list specifies company data to return
+    type: string
+    format: csv
+  cik:
+    name: cik
+    in: query
+    description: One or more cik identifier in comma separated list specifies company data to return
+    type: string
+    format: csv
+  asOf:
+    name: asOf
+    in: query
+    description: Return results for dates greater than or equal date specified in this parameter
+    type: string
+    format: YYYY-MM-DD
+    required: false
+  period:
+    name: period
+    in: query
+    description: Specifies the time period of the returned results
+    type: string
+    default: ALL
+    enum:
+      - 3M
+      - 6M
+      - 9M
+      - 12M
+      - 1Y
+      - ALL
+      - TTM
+    required: false
+  reportType:
+    name: reportType
+    in: query
+    description: TTM, A (as originally reported), R (restated). P (Preliminary anouncements)
+    default: A
+    enum:
+      - TTM
+      - A
+      - R
+      - P
+    required: false
