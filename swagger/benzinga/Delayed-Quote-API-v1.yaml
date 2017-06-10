@@ -1,0 +1,104 @@
+swagger: "2.0"
+info:
+  version: "1.0"
+  title: Benzinga Delayed Quote API
+  description: Benzinga Delayed Quote REST API
+host: api.benzinga.com
+basePath: /api/v1
+schemes:
+- http
+- https
+security:
+- token: []
+paths:
+  /quoteDelayed:
+    get:
+      summary: Get the delayed quotes.
+      parameters:
+      - name: accept
+        in: header
+        type: string
+        description: Specify return format.
+        enum: ["application/json","application/xml"]
+      - name: symbols
+        in: query
+        type: string
+      - name: isin
+        in: query
+        type: string
+      - name: cik
+        in: query
+        type: string
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/DelayedQuotesResponse"
+
+securityDefinitions:
+  token:
+    type: apiKey
+    name: "token"
+    in: query
+
+definitions:
+  DelayedQuotesResponse:
+    type: object
+    properties:
+      quotes:
+        type: array  
+        items:
+          type: object
+          properties:
+            security:
+              type: object
+              properties:
+                symbol:
+                  type: string
+                cik:
+                  type: string
+                valoren:
+                  type: string
+                name:
+                  type: string
+            quote:
+              type: object
+              properties:
+                date:
+                  type: string
+                open:
+                  type: number
+                  format: float
+                high:
+                  type: number
+                  format: float
+                close:
+                  type: number
+                  format: float
+                previousClose:
+                  type: number
+                  format: float
+                change:
+                  type: number
+                  format: float
+                changePercent:
+                  type: number
+                  format: float
+                fiftyTwoWeekHigh:
+                  type: number
+                  format: float
+                fiftyTwoWeekLow:
+                  type: number
+                  format: float
+                currency:
+                  type: string
+                last:
+                  type: number
+                  format: float
+                tradingHalted:
+                  type: boolean
+                volume:
+                  type: integer
+                  format: int64
+                previousCloseDate:
+                  type: string
