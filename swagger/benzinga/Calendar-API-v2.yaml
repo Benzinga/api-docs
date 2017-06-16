@@ -1,0 +1,812 @@
+swagger: '2.0'
+info:
+  version: "2.0.0"
+  title: Benzinga Calendar
+  description: A REST API returns structured data for dividends, earnings, future earnings dates, conference calls, economics, guidance, IPOs, ratings, retail sales, splits.
+host: api.benzinga.com
+basePath: /api/v2
+schemes:
+  - https
+  - http
+produces:
+  - application/json
+  - application/xm
+
+paths:
+  /calendar/dividends:
+    get:
+      security:
+        - token: []
+      summary: Dividends Events
+      description: Returns dividends data for a selected period and/or security.
+      parameters:
+        - $ref: '#/parameters/accept'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/pagesize'
+        - $ref: '#/parameters/parameters[date]'
+        - $ref: '#/parameters/parameters[date_from]'
+        - $ref: '#/parameters/parameters[date_to]'
+        - $ref: '#/parameters/parameters[tickers]'
+        - $ref: '#/parameters/parameters[importance]'
+        - $ref: '#/parameters/parameters[date_sort]'
+        - $ref: '#/parameters/parameters[updated]'
+        - $ref: '#/parameters/parameters[dividend_yield_operation]'
+        - $ref: '#/parameters/parameters[dividend_yield]'
+
+      responses:
+        200:
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/dividends"
+
+  /calendar/earnings:
+    get:
+      summary: Returns the earnings data
+      parameters:
+        - $ref: '#/parameters/accept'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/pagesize'
+        - $ref: '#/parameters/parameters[date]'
+        - $ref: '#/parameters/parameters[date_from]'
+        - $ref: '#/parameters/parameters[date_to]'
+        - $ref: '#/parameters/parameters[tickers]'
+        - $ref: '#/parameters/parameters[importance]'
+        - $ref: '#/parameters/parameters[date_sort]'
+        - $ref: '#/parameters/parameters[updated]'
+      security:
+      - token: []
+      responses:
+        200:
+          description: success
+          schema:
+            type: object
+            properties:
+              earnings:
+                $ref: '#/definitions/earnings'
+
+  /calendar/splits:
+    get:
+      security:
+        - token: []
+      summary: Returns the splits calendar data
+      parameters:
+        - $ref: '#/parameters/accept'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/pagesize'
+        - $ref: '#/parameters/parameters[date]'
+        - $ref: '#/parameters/parameters[date_from]'
+        - $ref: '#/parameters/parameters[date_to]'
+        - $ref: '#/parameters/parameters[tickers]'
+        - $ref: '#/parameters/parameters[importance]'
+        - $ref: '#/parameters/parameters[updated]'
+      responses:
+        200:
+          description: success
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/splits"
+
+
+  /calendar/economics:
+    get:
+      security:
+        - token: []
+      summary: Returns the economic calendar data
+      parameters:
+        - $ref: '#/parameters/accept'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/pagesize'
+        - $ref: '#/parameters/parameters[date]'
+        - $ref: '#/parameters/parameters[date_from]'
+        - $ref: '#/parameters/parameters[date_to]'
+        - $ref: '#/parameters/parameters[tickers]'
+        - $ref: '#/parameters/parameters[importance]'
+        - $ref: '#/parameters/parameters[updated]'
+        - $ref: '#/parameters/country'
+      responses:
+        200:
+          description: success
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/economics"
+
+
+  /calendar/guidance:
+    get:
+      security:
+        - token: []
+      summary: Returns guidance data
+      parameters:
+        - $ref: '#/parameters/accept'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/pagesize'
+        - $ref: '#/parameters/parameters[date]'
+        - $ref: '#/parameters/parameters[date_from]'
+        - $ref: '#/parameters/parameters[date_to]'
+        - $ref: '#/parameters/parameters[tickers]'
+        - $ref: '#/parameters/parameters[importance]'
+        - $ref: '#/parameters/parameters[updated]'
+        - $ref: '#/parameters/country'
+      responses:
+        200:
+          description: success
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/guidance"
+
+  /calendar/ipos:
+    get:
+      security:
+        - token: []
+      summary: Returns initial public offering data
+      parameters:
+        - $ref: '#/parameters/accept'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/pagesize'
+        - $ref: '#/parameters/parameters[date]'
+        - $ref: '#/parameters/parameters[date_from]'
+        - $ref: '#/parameters/parameters[date_to]'
+        - $ref: '#/parameters/parameters[tickers]'
+        - $ref: '#/parameters/parameters[importance]'
+        - $ref: '#/parameters/parameters[updated]'
+      responses:
+        200:
+          description: success
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ipos"
+
+  /calendar/ratings:
+    get:
+      security:
+        - token: []
+      summary: Returns analyst ratings data
+      parameters:
+        - $ref: '#/parameters/accept'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/pagesize'
+        - $ref: '#/parameters/parameters[date]'
+        - $ref: '#/parameters/parameters[date_from]'
+        - $ref: '#/parameters/parameters[date_to]'
+        - $ref: '#/parameters/parameters[tickers]'
+        - $ref: '#/parameters/parameters[importance]'
+        - $ref: '#/parameters/parameters[updated]'
+        - $ref: '#/parameters/parameters[action]'
+      responses:
+        200:
+          description: success
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ratings"
+
+  /calendar/retail:
+    get:
+      security:
+        - token: []
+      summary: Returns retail sales data
+      parameters:
+        - $ref: '#/parameters/accept'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/pagesize'
+        - $ref: '#/parameters/parameters[date]'
+        - $ref: '#/parameters/parameters[date_from]'
+        - $ref: '#/parameters/parameters[date_to]'
+        - $ref: '#/parameters/parameters[tickers]'
+        - $ref: '#/parameters/parameters[importance]'
+        - $ref: '#/parameters/parameters[updated]'
+      responses:
+        200:
+          description: success
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/retail"
+
+
+parameters:
+  accept:
+    name: accept
+    in: header
+    description: Specifies return format. Query parameters work the same for both formats.
+    type: string
+    enum:
+      - application/json
+      - application/xml
+    default: application/xml
+  page:
+    name: page
+    in: query
+    type: integer
+    description: Page offset.
+    default: 0
+  pagesize:
+    name: pagesize
+    in: query
+    type: integer
+    description: Number of results returned. Limit 1000
+  parameters[date]:
+    name: parameters[date]
+    in: query
+    type: string
+    format: YYYY-MM-DD
+    description: Date to query for calendar data. Shorthand for date_from and date_to if they are the same. Defaults for latest.
+  parameters[date_from]:
+    name: parameters[date_from]
+    in: query
+    type: string
+    format: YYYY-MM-DD
+    description: Date to query from point in time.
+  parameters[date_to]:
+    name: parameters[date_to]
+    in: query
+    type: string
+    format: YYYY-MM-DD
+    description: Date to query to point in time.
+  parameters[tickers]:
+    name: parameters[tickers]
+    in: query
+    type: string
+    format: csv
+    description: One or more ticker symbols separated by a comma. All calendar accept this parameter. Ignored by Economics.
+  parameters[importance]: 
+    name: parameters[importance]
+    in: query
+    type: integer
+    enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+    description: The importance level to filter by. Uses Greater Than or Equal To the importance indicated
+  parameters[updated]:
+    name: parameters[updated]
+    in: query
+    type: integer
+    format: int64
+    description: Records last Updated Unix timestamp (UTC). This will force the sort order to be Greater Than or Equal to the timestamp indicated.
+  parameters[date_sort]:
+    name: parameters[date_sort]
+    in: query
+    type: string
+    format: announced | ex | payable | record
+    description: Dividend date field to sort on
+  parameters[dividend_yield_operation]:
+    name: parameters[dividend_yield_operation]
+    in: query
+    type: string
+    enum:
+      - gt
+      - gte
+      - eq
+      - lte
+      - lt
+    description: Specifies how to filter using dividend yield. gt = Greater Than, gte = Greater Than Equal, eq = Equal, lt = Less Than, lte = Less Than Equal
+  parameters[dividend_yield]:
+    name: parameters[dividend_yield]
+    in: query
+    type: number
+    format: double
+    description: The dividend yield amount to filter by. Defaults to using Equal To the amount indicated. 1 =100%eater Than or Equal To’, ‘Equal To’, ‘Less Than or Equal To’, and ‘Less Than’ filters respectively.
+  parameters[action]:
+    name: parameters[action]
+    in: query
+    type: string
+    description: Filter by a specific action
+    enum:
+      - Upgrades
+      - Downgrades
+      - Maintains
+      - Lowers
+      - Raises
+      - Initiates Coverage On
+      - Terminates Coverage On
+
+  country:
+    name: country
+    in: query
+    type: string
+    format: A-Z:3
+    description: 3-Digit Country Code
+
+definitions:
+  dividends:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Unique ID of this entry
+      updated: 
+        type: integer
+        description: Last updated timestamp, UTC
+      active:
+        type: integer
+        description: 1 = active item / 0 = delete or hide item (with field missing, assume 1)
+      date: 
+        type: string
+        format: YYYY-DD-MM
+        description: Announced Date on calendar
+      time:
+        type: string
+        format: HH:MM:SS
+        description: Announced Time on Calendar, 24hr format
+      ticker:
+        type: string
+        description: Ticker Symbol (F, MSFT, etc...)
+      exchange:
+        type: string
+        description: Exchange (NYSE, NASDAQ, etc...)
+      frequency:
+        type: integer
+        description: Frequency of the dividend
+      dividend:
+        type: number
+        format: double
+        description: Dividend value
+      dividend_prior: 
+        type: number
+        format: double
+        description: Period prior dividend value
+      dividend_type:
+        type: string
+        description: Type of dividend
+      dividend_yield:
+        type: string
+        description: Yield of dividend
+      ex_dividend_date:
+        type: string
+        description: Dividend Ex Date
+      payable_date:
+        type: string
+        description: Dividend Payable Date
+      record_date:
+        type: string
+        description: Dividend Recorded Date
+      importance:
+        type: string
+        format: 0-5
+        description: Subjective Basis of How Important Event is to Market. 5 = High.
+  earnings:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+        updated:
+          type: integer
+          description: Last updated timestamp, UTC
+        active:
+          type: integer
+          description: 1 = active item / 0 = delete or hide item (with field missing, assume 1)
+        date:
+          type: string
+          description: Announced Date on Calendar
+        time:
+          type: string
+          format: HH:MM:SS
+          description: Announced Time on Calendar, 24hr format
+        ticker:
+          type: string
+          description: Ticker Symbold (F, MSFT, etc...)
+        importance:
+          type: integer
+          description: Subjective Basis of How Important Event is to Market. 5=High
+        period:
+          type: string
+          format: Q[1-4]
+          description: Period of the earnings actual
+        period_year:
+          type: integer
+          format: XXXX
+          description: Period Year of the earnings actual
+        date_confirmed:
+          type: string
+          format: Y/N
+          description: If the report date was confirmed (vs est)
+        eps:
+          type: number
+          format: double
+          description: Comparable and Adjusted EPS
+        eps_estt:
+          type: number
+          format: double
+          description: Adjusted EPS Consensus Aggregate Analyst Estimate
+        eps_prior:
+          type: number
+          format: double
+          description: Adjusted EPS from Prior Period
+        revenue:
+          type: number
+          format: double
+          description: Revenue
+        revenue_es:
+          type: number
+          format: double
+          description: Revenue Consensus Analyst Estimate
+  splits:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Unique ID of this entry
+      updated: 
+        type: integer
+        description: Last updated timestamp, UTC
+      active:
+        type: integer
+        description: 1 = active item / 0 = delete or hide item (with field missing, assume 1)
+      date:
+        type: string
+        format: YYYY-DD-MM
+        description: Announced Date on calendar
+      time:
+        type: string
+        format: HH:MM:SS
+        description: Announced Time on Calendar, 24hr format
+      ticker:
+        type: string
+        description: Ticker Symbol (F, MSFT, etc...)
+      exchange:
+        type: string
+        description: Exchange (NYSE, NASDAQ, etc...)
+      importance:
+        type: string
+        format: 0-5
+        description: Subjective Basis of How Important Event is to Market. 5=high
+      ratio:
+        type: string
+        format: x/x 
+        description: Ratio of the split
+      optionable: 
+        type: string
+        description: is the script optionable?
+      date_ex:
+        type: string
+        format: YYYY-MM-DD
+        description: Ex date
+      date_recorded:
+        type: string
+        format: YYYY-MM-DD
+        description: Recorded date
+      date_distribution:
+        type: string
+        format: YYYY-MM-DD
+        description: Distribution date
+      
+  economics:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique identifier for each data point
+      date:
+        type: string
+        format: YYYY-MM-DD
+      time:
+        type: string
+        format: HH:MM
+        description: Announced Time on Calendar, 24hr format
+      country:
+        type: string
+        description: 3-Character Country Code (USA, CA, etc...)
+      event_name:
+        type: string
+        description: Economic Event
+      event_period:
+        type: string
+        description: Period of Time (Q1, September, Third Week of August,...)
+      period_year:
+        type: string
+        description: Period Year
+      actual:
+        type: string
+      actual_t:
+        type: string
+      consensus:
+        type: string
+      consensus_t:
+        type: string
+      prior:
+        type: string
+      updated:
+        type: integer
+        description: Last updated timestamp, UTC
+      description:
+        type: string
+        description: Event Description
+
+  guidance:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique ID of this entry
+      date:
+        type: string
+        format: YYYY-MM-DD
+        description: Announced Date on Calendar
+      time:
+        type: string
+        format: HH:MM:SS
+        description: Announced Time on Calendar, 24hr format
+      ticker:
+        type: string
+        description: Ticker symbol of company guidance data is for
+      exchange:
+        type: string
+        description: Exchange (NYSE, NASDAQ, etc...)
+      name:
+        type: string
+        description: The name of the publicly traded company that the guidance data is for
+      period:
+        type: string
+        format: Q(N)
+        enum:
+          - Q1
+          - Q2
+          - Q3
+          - Q4
+      period_year:
+        type: string
+        format: YYYY
+        description: Period Year of the earnings actual
+      prelim:
+        type: string
+        format: B
+        enum:
+          - Y
+          - N
+        description: Yes or No for if guidance is a preliminary earnings report
+      eps_guidance_est:
+        type: string
+        format: float
+        description: Adjusted EPS Consensus Estimate
+      eps_guidance_max:
+        type: string
+        format: float
+        description: Adjusted EPS from Prior Period Max
+      eps_guidance_min:
+        type: string
+        format: float
+        description: Adjusted EPS from Prior Period Min
+      eps_guidance_prior_max:
+        type: string
+        format: float
+        description: Adjusted EPS from Prior Period Max
+      eps_guidance_prior_min:
+        type: string
+        format: float
+        description: Adjusted EPS from Prior Period Min
+      importance:
+        type: string
+        format: N
+        enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+        description: Subjective Basis of How Important Event is to Market.  5 = High.
+      updated:
+        type: integer
+        format: int64
+        description: Last updated timestamp, UTC
+
+  ipos:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique ID of this entry
+      date:
+        type: string
+        format: YYYY-MM-DD
+        description: Date of IPO
+      time:
+        type: string
+        format: HH:MM:SS
+        description: Time of IPO
+      ticker:
+        type: string
+        description: Ticker symbol for IPO
+      exchange:
+        type: string
+        description: Exchange (NYSE, NASDAQ, etc...)
+      name:
+        type: string
+        description: The name of the publicly traded company that the guidance data is for
+      pricing_date:
+        type: string
+        description: date of IPO pricing
+      price_min:
+        type: string
+        description: Minimum open price
+      price_max:
+        type: string
+        description: Maximum open price
+      deal_status:
+        type: string
+        description: status of IPO
+      insider_lockup_days:
+        type: string
+        description: Insider lockup period in days
+      insider_lockup_date:
+        type: string
+        description: Insider lockup date
+      offering_value:
+        type: string
+        format: float
+        description: Value of IPO
+      offering_shares:
+        type: string
+        format: float
+        description: Number of shares offered in IPO
+      shares_from_seling_holders:
+        type: string
+        format: int
+        description: Shares offered by holders
+      other_underwriters:
+        type: array
+        items:
+          type: string
+          description: Name of other underwriter for IPO
+        description: List of other/secondary underwriter(s)
+      underwriter_quiet_expiration_days:
+        type: string
+        description: Underwriter quite expiration period in days
+      underwriter_quiet_expiration_date:
+        type: string
+        description: Underwriter quite expiration date
+      updated:
+        type: integer
+        format: int64
+        description: Last updated timestamp, UTC
+      lead_underwriters:
+        type: array
+        items:
+          type: string
+          description: Name of lead underwriter for IPO
+        description: List of lead underwriter(s)
+
+  ratings:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique ID of this entry
+      date:
+        type: string
+        format: YYYY-MM-DD
+        description: Date for rating
+      url_calendar:
+        type: string
+        format: URI
+        description: URI for analyst ratings page for this ticker on Benzinga.com
+      url_news:
+        type: string
+        format: URI
+        description: URI for analyst ratings news articles for this ticker on Benzinga.com
+      time:
+        type: string
+        format: HH:MM:SS
+        description: Time for rating
+      ticker:
+        type: string
+        description: Ticker symbol of company that is subject of rating
+      exchange:
+        type: string
+        description: Exchange (NYSE, NASDAQ, etc...)
+      name:
+        type: string
+        description: Name of company that is subject of rating
+      action_pt:
+        type: string
+        enum:
+          - Raises
+          - Lowers
+        description: Description of the change in price target for rating
+      action_company:
+        type: string
+        description: Description of the action for rating
+        enum:
+          - Upgrades
+          - Downgrades
+          - Maintains
+          - Lowers
+          - Raises
+          - Initiates Coverage On
+          - Terminates Coverage On
+      rating_current:
+        type: string
+        description: The analyst's rating for the company
+      rating_prior:
+        type: string
+        description: Prior analyst rating for the company
+      url:
+        type: string
+        format: URI
+        description: URI for analyst ratings page for this ticker on Benzinga.com
+      importance:
+        type: string
+        enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+        description: Subjective Basis of How Important Event is to Market. 5 = High
+      updated:
+        type: integer
+        format: int64
+        description: Last updated timestamp, UTC
+      analyst:
+        type: string
+        description: Name of the analyst firm that published the rating
+
+  retail:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique ID of this entry
+      date:
+        type: string
+        format: YYYY-MM-DD
+        description: Date for rating
+      time:
+        type: string
+        format: HH:MM:SS
+        description: Time for rating
+      ticker:
+        type: string
+        description: Ticker symbol of company that is subject of rating
+      exchange:
+        type: string
+        description: Exchange (NYSE, NASDAQ, etc...)
+      name:
+        type: string
+        description: Name of company that is subject of rating
+      importance:
+        type: string
+        enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+        description: Subjective Basis of How Important Event is to Market. 5 = High
+      period:
+        type: string
+        format: QN
+        enum:
+          - Q1
+          - Q2
+          - Q3
+          - Q4
+        description: Period of the retail sales
+      period_year:
+        type: string
+        format: YYYY
+        description: Year for the period of the retail sales
+      sss:
+        type: string
+        format: float
+        desription: Same-Store Sales
+      updated:
+        type: integer
+        format: int64
+        description: Last updated timestamp, UTC
+
+securityDefinitions:
+  token:
+    type: apiKey
+    name: "token"
+  in: query 
