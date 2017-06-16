@@ -10,7 +10,7 @@ schemes:
   - http
 produces:
   - application/json
-  - application/xm
+  - application/xml
 
 paths:
   /calendar/dividends:
@@ -809,4 +809,4 @@ securityDefinitions:
   token:
     type: apiKey
     name: "token"
-  in: query 
+    in: query 
