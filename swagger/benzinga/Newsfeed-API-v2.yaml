@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   version: "2.0.0"
-  title: "Benzinga Newsfeed REST API v2"
+  title: "Newsfeed API"
   description: "Benzinga Newsfeed REST API"
 host: "api.benzinga.com"
 basePath: "/api/v2"
@@ -134,7 +134,7 @@ definitions:
           type: array
           description: The topic(s) or categories that relate to the article. Channels can have sub-channels, but they will all be listed as their own item and not as a sub-level of the array.
           items:
-          - type: object
+            type: object
             properties:
               name:
                 type: string
@@ -142,7 +142,7 @@ definitions:
           type: array
           description: The stock symbols that are listed within the article body. This will not display competitor symbols unless they are specifically referenced in the article.
           items:
-          - type: object
+            type: object
             properties:
               name:
                 type: string
@@ -150,7 +150,7 @@ definitions:
           type: array
           description: Additional tags that are not channels or categories, but are reoccuring themes including, but not limited to; analyst names, bills being talked about in Congress (Dodd-Frank), specific products (iPhone), politicians, celebrities, stock movements (i.e. 'Mid-day Losers' & 'Mid-day Gainers').
           items:
-          - type: object
+            type: object
             properties:
               name:
                 type: string
