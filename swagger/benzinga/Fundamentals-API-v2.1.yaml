@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   version: "2.0.0"
-  title: Benzinga Fundamentals API
+  title: Fundamentals API
   description: Get financials, earnings ratios, financial ratios, and company data.
 host: "api.benzinga.com"
 basePath: /api/v2
@@ -16,7 +16,7 @@ security:
 paths:
   /fundamentals:
     get:
-      summary: "Get all of the available company data. Although symbols, isin, and cik are technically optional, if no parameters are included with the response, the result will be empty"
+      summary: "Get valuation ratios, earning ratios, operation ratios, balance sheet"
       parameters:
         - $ref: '#/parameters/accept'
         - $ref: '#/parameters/symbols'
@@ -58,7 +58,6 @@ paths:
           description: "An object including a response that includes valuationRatio data"
           schema:
             $ref: '#definitions/FundamentalsEarningRatiosResponse'
-
 
   /fundamentals/operationRatios:
     get:
@@ -125,8 +124,7 @@ definitions:
               $ref: '#/definitions/alphaBeta'
             processingTimeMillis:
               type: integer
-
-  FundametalsEarningRatiosResponse:
+  FundamentalsEarningRatiosResponse:
     type: object
     properties:
       result:
