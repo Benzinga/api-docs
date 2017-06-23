@@ -23,24 +23,28 @@ paths:
       - name: symbols
         in: query
         type: string
+        format: csv
+        description: One or more comma separated symbols to specify companies to get data for.
       - name: isin
         in: query
         type: string
+        format: csv
+        description: One or more comma separated isin symbols to specify companies to get data for.
       - name: cik
         in: query
         type: string
+        format: csv
+        description: One or more comma separated cik identifiers to specify companies to get data for.
       responses:
         200:
           description: "success"
           schema:
             $ref: "#/definitions/DelayedQuotesResponse"
-
 securityDefinitions:
   token:
     type: apiKey
     name: "token"
     in: query
-
 definitions:
   DelayedQuotesResponse:
     type: object
@@ -55,50 +59,72 @@ definitions:
               properties:
                 symbol:
                   type: string
+                  description: Registered symbol of security
                 cik:
                   type: string
+                  description: Unique identifier of security
                 valoren:
                   type: string
+                  description: Unique identifier of security
                 name:
                   type: string
+                  description: Registered name of security
             quote:
               type: object
               properties:
                 date:
                   type: string
+                  description: Date and time of current trading day. UTC.
                 open:
                   type: number
                   format: float
+                  description: Price at same day market open
                 high:
                   type: number
                   format: float
+                  description: Indicator of highest price of security for same day
+                low:
+                  type: number
+                  format: float
+                  description: Indicator of lowest price of security for same day
                 close:
                   type: number
                   format: float
+                  description: Price at same day close. Only available after market close.
                 previousClose:
                   type: number
                   format: float
+                  description: Price at the close of previous trading day
                 change:
                   type: number
                   format: float
+                  description: Change in price of security
                 changePercent:
                   type: number
                   format: float
+                  description: Percentage of change in price of security
                 fiftyTwoWeekHigh:
                   type: number
                   format: float
+                  description: Highest price of security in previous fifty two weeks
                 fiftyTwoWeekLow:
                   type: number
                   format: float
+                  description: Lowest price of security in previous fifty two weeks
                 currency:
                   type: string
+                  description: Type of currency the security is priced
                 last:
                   type: number
                   format: float
+                  description: Price of last open 
                 tradingHalted:
                   type: boolean
+                  description: Indicator if trade was halted on security
                 volume:
                   type: integer
                   format: int64
+                  description: Measurement of trading activity
                 previousCloseDate:
                   type: string
+                  description: Date of previous close for exchange. UTC.
