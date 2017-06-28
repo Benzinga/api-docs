@@ -799,7 +799,7 @@ definitions:
       sss:
         type: string
         format: float
-        desription: Same-Store Sales
+        description: Same-Store Sales
       updated:
         type: integer
         format: int64
