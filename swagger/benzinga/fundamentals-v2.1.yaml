@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   version: "2.0.0"
-  title: Fundamentals API
+  title: Fundamentals
   description: Get financials, earnings ratios, financial ratios, and company data.
 host: "api.benzinga.com"
 basePath: /api/v2
