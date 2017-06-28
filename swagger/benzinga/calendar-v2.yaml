@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   version: "2.0.0"
-  title: Calendar API
+  title: Calendar
   description: This REST API returns structured data for dividends, earnings, future earnings dates, conference calls, economics, guidance, IPOs, ratings, retail sales, splits.
 host: api.benzinga.com
 basePath: /api/v2
