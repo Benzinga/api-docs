@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   version: "1.0"
-  title: Delayed Quote API
+  title: Delayed Quote
   description: Benzinga Delayed Quote REST API
 host: api.benzinga.com
 basePath: /api/v1
