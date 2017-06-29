@@ -42,7 +42,7 @@ paths:
         "200":
           description: "An object including a response that includes valuationRatio data"
           schema:
-            $ref: '#definitions/FundamentalsValuationRatiosResponse'
+            $ref: '#/definitions/FundamentalsValuationRatiosResponse'
 
   /fundamentals/earningRatios:
     get:
@@ -57,7 +57,7 @@ paths:
         "200":
           description: "An object including a response that includes valuationRatio data"
           schema:
-            $ref: '#definitions/FundamentalsEarningRatiosResponse'
+            $ref: '#/definitions/FundamentalsEarningRatiosResponse'
 
   /fundamentals/operationRatios:
     get:
@@ -72,7 +72,7 @@ paths:
         "200":
           description: "An object including a response that includes operationRatio data"
           schema:
-            $ref: '#definitions/FundamentalsOperationRatiosResponse'
+            $ref: '#/definitions/FundamentalsOperationRatiosResponse'
 
   /fundamentals/financials:
     get:
@@ -130,55 +130,58 @@ definitions:
       result:
         type: array
         items:
-          type: object
-          properties:
-            company:
-              $ref: '#/definitions/company'
-            earningRatios: 
-              type: array
-              items:
-                type: object
-                properties:
-                  id:
-                    type: object
-                    properties:
-                      shareClassId:
-                        type: string
-                      asOf:
-                        type: string
-                        format: YYY-MM-DD
-                      reportType:
-                        type: string
-                      period:
-                        type: string
-                      aorOrRestate:
-                        type: string
-                  fiscalYearEnd:
-                    type: integer
-                  dilutedEpsGrowth:
-                    type: number
-                    format: float
-                    description: The growth in the company’s diluted earnings per share (EPS) on a percentage basis. Morningstar calculates the annualized growth percentage based on the underlying diluted EPS reported in the Income Statement within the company filings or reports.
-                  dilutedConstEpsGrowth:
-                    type: number
-                    format: float
-                    description: The growth in the company’s diluted EPS from continuing operations on a percentage basis. Morningstar calculates the annualized growth percentage based on the underlying diluted EPS from continuing operations reported in the Income Statement within the company filings or reports.
-                  dpsGrowth:
-                    type: number
-                    format: float
-                    description: The growth in the company’s dividends per share (DPS) on a percentage basis. Morningstar calculates the annualized growth percentage based on the underlying DPS from its dividend database. Morningstar collects its DPS from company filings and reports, as well as from third party sources.
-                  equityPerShareGrowth:
-                    type: number
-                    format: float
-                    description: The growth in the company’s book value per share on a percentage basis. Morningstar calculates the annualized growth percentage based on the underlying equity and end of period shares outstanding reported in the company filings or reports.
-            symbol:
-              type: string
-            idType:
-              type: string
-            id:
-              type: string
+          $ref: '#/definitions/EarningRatiosObj'
       processingTimeMillis:
         type: integer
+  
+  EarningRatiosObj:
+    type: object
+    properties:
+      company:
+        $ref: '#/definitions/company'
+      earningRatios: 
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: object
+              properties:
+                shareClassId:
+                  type: string
+                asOf:
+                  type: string
+                  format: YYY-MM-DD
+                reportType:
+                  type: string
+                period:
+                  type: string
+                aorOrRestate:
+                  type: string
+                fiscalYearEnd:
+                  type: integer
+                dilutedEpsGrowth:
+                  type: number
+                  format: float
+                  description: The growth in the company’s diluted earnings per share (EPS) on a percentage basis. Morningstar calculates the annualized growth percentage based on the underlying diluted EPS reported in the Income Statement within the company filings or reports.
+                dilutedConstEpsGrowth:
+                  type: number
+                  format: float
+                  description: The growth in the company’s diluted EPS from continuing operations on a percentage basis. Morningstar calculates the annualized growth percentage based on the underlying diluted EPS from continuing operations reported in the Income Statement within the company filings or reports.
+                dpsGrowth:
+                  type: number
+                  format: float
+                  description: The growth in the company’s dividends per share (DPS) on a percentage basis. Morningstar calculates the annualized growth percentage based on the underlying DPS from its dividend database. Morningstar collects its DPS from company filings and reports, as well as from third party sources.
+                equityPerShareGrowth:
+                  type: number
+                  format: float
+                  description: The growth in the company’s book value per share on a percentage basis. Morningstar calculates the annualized growth percentage based on the underlying equity and end of period shares outstanding reported in the company filings or reports.
+                symbol:
+                  type: string
+                idType:
+                  type: string
+                id:
+                  type: string
             
   FundamentalsValuationRatiosResponse:
     type: object
@@ -186,169 +189,175 @@ definitions:
       result:
         type: array
         items:
-          type: object
-          properties:
-            valuationRatios:
-            type: array
-            items:
-              type: object
-              properties:
-                id:
-                  type: object
-                  properties:
-                    shareClassId:
-                      type: string
-                    date:
-                      type: string
-                      format: YYYY-MM-DD
-                payoutRatio:
-                  type: number
-                  format: float
-                  description: Dividend per share / Diluted earning per share
-                sustainableGrowthRate:
-                  type: number
-                  format: float
-                  description: ROE * (1 – Payout Ratio)
-                cashReturn:
-                  type: number
-                  format: float
-                  description: Refers to the ratio of free cash flow to enterprise value. Morningstar calculates the ratio by using the underlying data reported in the company filings or reports- FCF /Enterprise Value.
-                salesPerShare:
-                  type: number
-                  format: float
-                  description: Sales / Average Diluted Shares Outstanding
-                bookValuePerShare:
-                  type: number
-                  format: float
-                  description: Common Shareholder’s Equity / Diluted Shares Outstanding
-                cfoPerShare:
-                  type: number
-                  format: float
-                  description: Cash Flow from Operations / Average Diluted Shares Outstanding
-                fcfPerShare:
-                  type: number
-                  format: float
-                  description: Free Cash Flow / Average Diluted Shares Outstanding
-                earningYield:
-                  type: number
-                  format: float
-                  description: Diluted EPS / Price
-                peRatio:
-                  type: number
-                  format: float
-                  description: 1 / Earnings Yield. If result is negative, then null
-                salesYield:
-                  type: number
-                  format: float
-                  description: SalesPerShare / Price
-                psRatio:
-                  type: number
-                  format: float
-                  description: 1 / SalesYield. If result is negative, then null
-                bookValueYield:
-                  type: number
-                  format: float
-                  description: BookValuePerShare / Price
-                pbRatio:
-                  type: number
-                  format: float
-                  description: 1 / BookValueYield. If result is negative, then null
-                cfYield:
-                  type: number
-                  format: float
-                  description: CFOPerShare / Price
-                pcfRatio:
-                  type: number
-                  format: float
-                  description: 1 / CFYield If result is negative, then null
-                fcfYield:
-                  type: number
-                  format: float
-                  description: FCFPerShare / Price
-                fcfRatio:
-                  type: number
-                  format: float
-                  description: 1 / FCFYield If result is negative, then null
-                trailingDividendYield:
-                  type: number
-                  format: float
-                  description: 
-                forwardDividendYield:
-                  type: number
-                  format: float
-                  description: (Current Dividend Per Share * Payout Frequency) / Price
-                forwardEarningYield:
-                  type: number
-                  format: float
-                  description: Estimated Earnings Per Share / Price. Note-  The “Next” Year’s EPS Estimate is used; For instance, if today’s actual date is March 1, 2009, the “Current” EPS Estimate for MSFT is June 2009, and the “Next” EPS Estimate for MSFT is June 2010; the latter is used. The eps estimated data is sourced from a third party.
-                forwardPeRatio:
-                  type: number
-                  format: float
-                  description: 1 / ForwardEarningYield If result is negative, then null
-                pegRatio:
-                  type: number
-                  format: float
-                  description: ForwardPERatio / Long-term Average Earning Growth Rate
-                pegPayback:
-                  type: number
-                  format: float
-                  description: The number of years it would take for a company's cumulative earnings to equal the stock's current trading price, assuming that the company continues to increase its annual earnings at the growth rate used to calculate the PEG ratio.
-                tangibleBookValuePerShare:
-                  type: number
-                  format: float
-                  description: The company’s total book value less the value of any intangible assets dividend by number of shares.
-                tangibleBvPerShare3YrAvg:
-                  type: number
-                  format: float
-                  description: The three year average for tangible book value per share.
-                tangibleBvPerShare5YrAvg:
-                  type: number
-                  format: float
-                  description: The five year average for tangible book value per share.
-                forwardDividend:
-                  type: number
-                  format: float
-                  description: Estimation of a year's dividend expressed as a percentage of current stock price.
-                workingCapitalPerShare:
-                  type: number
-                  format: float
-                  description: (Current Assets – Current Liabilities)/number of shares
-                workingCapitalPerShare3YrAvg:
-                  type: number
-                  format: float
-                  description: The three year average for working capital per share.
-                workingCapitalPerShare5YrAvg:
-                  type: number
-                  format: float
-                  description: The five year average for working capital per share.
-                evToEbitda:
-                  type: number
-                  format: float
-                  decsription: A financial ratio that measures a company's return on investment (ROI).
-                buyBackYield:
-                  type: number
-                  format: float
-                  description: Ratio of outstanding shares that reduces the number of its shares on the open market.
-                totalYield:
-                  type: number
-                  format: float
-                  description: Ratio of dividend yield plus the net share buyback percentage.
-                ratioPe5YearAverage:
-                  type: number
-                  format: float
-                  description: Average ratio of price to earnings yield over five years.
-                priceChange1M:
-                  type: number
-                  format: float
-                  description:
-                normalizedPeRatio:
-                  type: number
-                  format: float
-                  description: Smoothed ratio of price to earnings using a formula that normalizes the volatility.
-                pricetoEbitda:
-                  type: number
-                  format: float
-                  description: Ratio of stock price to per share Earnings Before Interest, Taxes, Depreciation and Amortization.
+          $ref: '#/definitions/ValuationRatiosObj'
+        
+  ValuationRatiosObj:
+    type: object
+    properties:
+      valuationRatios:
+        type: array
+        items:
+          $ref: '#/definitions/ValuationRatio'
+        
+  ValuationRatio:
+    type: object
+    properties:
+      id:
+        type: object
+        properties:
+          shareClassId:
+            type: string
+          date:
+            type: string
+            format: YYYY-MM-DD
+      payoutRatio:
+        type: number
+        format: float
+        description: Dividend per share / Diluted earning per share
+      sustainableGrowthRate:
+        type: number
+        format: float
+        description: ROE * (1 – Payout Ratio)
+      cashReturn:
+        type: number
+        format: float
+        description: Refers to the ratio of free cash flow to enterprise value. Morningstar calculates the ratio by using the underlying data reported in the company filings or reports- FCF /Enterprise Value.
+      salesPerShare:
+        type: number
+        format: float
+        description: Sales / Average Diluted Shares Outstanding
+      bookValuePerShare:
+        type: number
+        format: float
+        description: Common Shareholder’s Equity / Diluted Shares Outstanding
+      cfoPerShare:
+        type: number
+        format: float
+        description: Cash Flow from Operations / Average Diluted Shares Outstanding
+      fcfPerShare:
+        type: number
+        format: float
+        description: Free Cash Flow / Average Diluted Shares Outstanding
+      earningYield:
+        type: number
+        format: float
+        description: Diluted EPS / Price
+      peRatio:
+        type: number
+        format: float
+        description: 1 / Earnings Yield. If result is negative, then null
+      salesYield:
+        type: number
+        format: float
+        description: SalesPerShare / Price
+      psRatio:
+        type: number
+        format: float
+        description: 1 / SalesYield. If result is negative, then null
+      bookValueYield:
+        type: number
+        format: float
+        description: BookValuePerShare / Price
+      pbRatio:
+        type: number
+        format: float
+        description: 1 / BookValueYield. If result is negative, then null
+      cfYield:
+        type: number
+        format: float
+        description: CFOPerShare / Price
+      pcfRatio:
+        type: number
+        format: float
+        description: 1 / CFYield If result is negative, then null
+      fcfYield:
+        type: number
+        format: float
+        description: FCFPerShare / Price
+      fcfRatio:
+        type: number
+        format: float
+        description: 1 / FCFYield If result is negative, then null
+      trailingDividendYield:
+        type: number
+        format: float
+        description: The opposite of forward divident yield
+      forwardDividendYield:
+        type: number
+        format: float
+        description: (Current Dividend Per Share * Payout Frequency) / Price
+      forwardEarningYield:
+        type: number
+        format: float
+        description: Estimated Earnings Per Share / Price. Note-  The “Next” Year’s EPS Estimate is used; For instance, if today’s actual date is March 1, 2009, the “Current” EPS Estimate for MSFT is June 2009, and the “Next” EPS Estimate for MSFT is June 2010; the latter is used. The eps estimated data is sourced from a third party.
+      forwardPeRatio:
+        type: number
+        format: float
+        description: 1 / ForwardEarningYield If result is negative, then null
+      pegRatio:
+        type: number
+        format: float
+        description: ForwardPERatio / Long-term Average Earning Growth Rate
+      pegPayback:
+        type: number
+        format: float
+        description: The number of years it would take for a company's cumulative earnings to equal the stock's current trading price, assuming that the company continues to increase its annual earnings at the growth rate used to calculate the PEG ratio.
+      tangibleBookValuePerShare:
+        type: number
+        format: float
+        description: The company’s total book value less the value of any intangible assets dividend by number of shares.
+      tangibleBvPerShare3YrAvg:
+        type: number
+        format: float
+        description: The three year average for tangible book value per share.
+      tangibleBvPerShare5YrAvg:
+        type: number
+        format: float
+        description: The five year average for tangible book value per share.
+      forwardDividend:
+        type: number
+        format: float
+        description: Estimation of a year's dividend expressed as a percentage of current stock price.
+      workingCapitalPerShare:
+        type: number
+        format: float
+        description: (Current Assets – Current Liabilities)/number of shares
+      workingCapitalPerShare3YrAvg:
+        type: number
+        format: float
+        description: The three year average for working capital per share.
+      workingCapitalPerShare5YrAvg:
+        type: number
+        format: float
+        description: The five year average for working capital per share.
+      evToEbitda:
+        type: number
+        format: float
+        description: A financial ratio that measures a company's return on investment (ROI).
+      buyBackYield:
+        type: number
+        format: float
+        description: Ratio of outstanding shares that reduces the number of its shares on the open market.
+      totalYield:
+        type: number
+        format: float
+        description: Ratio of dividend yield plus the net share buyback percentage.
+      ratioPe5YearAverage:
+        type: number
+        format: float
+        description: Average ratio of price to earnings yield over five years.
+      priceChange1M:
+        type: number
+        format: float
+        description: Change in price
+      normalizedPeRatio:
+        type: number
+        format: float
+        description: Smoothed ratio of price to earnings using a formula that normalizes the volatility.
+      pricetoEbitda:
+        type: number
+        format: float
+        description: Ratio of stock price to per share Earnings Before Interest, Taxes, Depreciation and Amortization.
 
   FundamentalsOperationRatiosResponse:
     type: object
@@ -356,19 +365,24 @@ definitions:
       result:
         type: array
         items:
-          type: object
-          properties:
-            company:
-              $ref: '#/definitions/company'
-            operationRatios:
-              3M:
-                $ref: '#/definitions/operationRatio'
-              6M:
-                $ref: '#/definitions/operationRatio'
-              9M:
-                $ref: '#/definitions/operationRatio'
-              1Y:
-                $ref: '#/definitions/operationRatio'
+          $ref: '#/definitions/OperationRatiosObj'
+
+  OperationRatiosObj:
+    type: object
+    properties:
+      company:
+        $ref: '#/definitions/company'
+      operationRatios:
+        type: object
+        properties:
+          3M:
+            $ref: '#/definitions/operationRatio'
+          6M:
+            $ref: '#/definitions/operationRatio'
+          9M:
+            $ref: '#/definitions/operationRatio'
+          1Y:
+            $ref: '#/definitions/operationRatio'
 
   FundamentalsFinancialsResponse:
     type: object
@@ -885,101 +899,104 @@ definitions:
   financials:
     type: array
     items:
-      type: object
-      properties:
-        asOf:
-          type: string
-        period:
-          type: string
-        reportType:
-          type: string
-        aorOrRestate:
-          type: string
-        balanceSheet:
-          type: object
-          properties:
-            id:
-              type: object
-              properties:
-                companyId:
-                  type: string
-                asOf:
-                  type: string
-                reportType:
-                  type: string
-                period:
-                  type: string
-                aorOrRestate:
-                  type: string
-            fiscalYearEnd:
-              type: integer
-            currencyId:
-              type: string
-            isCalculated:
-              type: boolean
-            periodEndingDate:
-              type: string
-              description: The exact date that is given in the financial statements for each quarter’s end.
-            accountsPayable:
-              type: integer
-              description: Any money that a company owes its suppliers for goods and services purchased on credit and is expected to pay within the next year or operating cycle.
-            accountsReceivable:
-              type: integer
-              description: Accounts owed to a company by customers within a year as a result of exchanging goods or services on credit.
-            currentAccruedExpences:
-              type: integer
-              description: An expense recognized before it is paid for. Includes compensation, interest, pensions and all other miscellaneous accruals reported by the company. Expenses incurred during the accounting period, but not required to be paid until a later date.
-            accumulateDepreciation:
-              type: integer
-              description: The cumulative amount of wear and tear or obsolescence charged against the fixed assets of a company.
-            additionalPaidInCapital:
-              type: integer
-              description: Excess of issue price over par or stated value of the entity's capital stock and amounts received from other transactions involving the entity's stock or stockholders. Includes adjustments to additional paid in capital. There are two major categories of additional paid in capital- 1) Paid in capital in excess of par/stated value, which is the difference between the actual issue price of the shares and the shares’ par/stated value. 2) Paid in capital from other transactions which includes treasury stock, retirement of stock, stock dividends recorded at market, lapse of stock purchase warrants, conversion of convertible bonds in excess of the par value of the stock, and any other additional capital from the company’s own stock transactions.
-            capitalStock:
-              type: integer
-              description: The total amount of stock authorized for issue by a corporation, including common and preferred stock.
-            cashAndCashEquivalents:
-              type: integer
-              description: Includes unrestricted cash on hand, money market instruments and other debt securities which can be converted to cash immediately.
-            cashCashEquivalentAndMarketableSecurities:
-              type: integer
-              description: The aggregate amount of cash, cash equivalents, and marketable securities.
-            commonStock:
-              type: integer
-              description: Common stock (all issues) at par value, as reported within the Stockholder’s Equity section of the balance sheet; i.e. it is one component of Common Stockholder’s Equity
-            currentAssets:
-              type: integer
-              description: The total amount of assets considered to be convertible into cash within a relatively short period of time, usually a year.
-            currentDebtAndCapitalLeaseOblication:
-              type: integer
-              description: All borrowings due within one year including current portions of long-term debt and capital leases as well as short-term debt such as bank loans and commercial paper.
-            currentLiabilities:
-              type: integer
-              description: The debts or obligations of the firm that are due within one year.
-            currentCapitalLeaseObligation:
-              type: integer
-              description: Represents the total amount of long-term capital leases that must be paid within the next accounting period. Capital lease obligations are contractual obligations that arise from obtaining the use of property or equipment via a capital lease contract.
-            nonCurrentDeferredLiabilities:
-              type: integer
-              description: Represents the non-current portion of obligations, which is a liability that usually would have been paid but is now past due.
-            currentDeferredLiabilities:
-              type: integer
-              description: Represents the current portion of obligations, which is a liability that usually would have been paid but is now past due.
-            currentDeferredRevenue:
-              type: integer
-              description: Represents collections of cash or other assets related to revenue producing activity for which revenue has not yet been recognized. Generally, an entity records deferred revenue when it receives consideration from a customer before achieving certain criteria that must be met for revenue to be recognized in conformity with GAAP. It can be either current or non-current item. Also called unearned revenue.
-            nonCurrentDeferredRevenue:
-              type: integer
-              description: The non-current portion of deferred revenue amount as of the balance sheet date. Deferred revenue is a liability related to revenue producing activity for which revenue has not yet been recognized, and is not expected be recognized in the next twelve months.
-            grossPpe:
-              type: integer
-              decsription: Carrying amount at the balance sheet date for long-lived physical assets used in the normal conduct of business and not intended for resale. This can include land, physical structures, machinery, vehicles, furniture, computer equipment, construction in progress, and similar items. Amount does not include depreciation.
-            inventory:
-              type: integer
-              description: A company's merchandise, raw materials, and finished and unfinished products which have not yet been sold.
-            longTermDebt:
-              type: integer
-              description: Sum of the carrying values as of the balance sheet date of all long-term debt, which is debt initially having maturities due after one year or beyond the operating cycle, if longer, but excluding the portions thereof scheduled to be repaid within one year or the normal operating cycle, if longer. Long-term debt includes notes payable, bonds payable, mortgage loans, convertible debt, subordinated debt and other types of long term debt.
+      $ref: '#/definitions/financial'
+    
+  financial:
+    type: object
+    properties:
+      asOf:
+        type: string
+      period:
+        type: string
+      reportType:
+        type: string
+      aorOrRestate:
+        type: string
+      balanceSheet:
+        type: object
+        properties:
+          id:
+            type: object
+            properties:
+              companyId:
+                type: string
+              asOf:
+                type: string
+              reportType:
+                type: string
+              period:
+                type: string
+              aorOrRestate:
+                type: string
+          fiscalYearEnd:
+            type: integer
+          currencyId:
+            type: string
+          isCalculated:
+            type: boolean
+          periodEndingDate:
+            type: string
+            description: The exact date that is given in the financial statements for each quarter’s end.
+          accountsPayable:
+            type: integer
+            description: Any money that a company owes its suppliers for goods and services purchased on credit and is expected to pay within the next year or operating cycle.
+          accountsReceivable:
+            type: integer
+            description: Accounts owed to a company by customers within a year as a result of exchanging goods or services on credit.
+          currentAccruedExpences:
+            type: integer
+            description: An expense recognized before it is paid for. Includes compensation, interest, pensions and all other miscellaneous accruals reported by the company. Expenses incurred during the accounting period, but not required to be paid until a later date.
+          accumulateDepreciation:
+            type: integer
+            description: The cumulative amount of wear and tear or obsolescence charged against the fixed assets of a company.
+          additionalPaidInCapital:
+            type: integer
+            description: Excess of issue price over par or stated value of the entity's capital stock and amounts received from other transactions involving the entity's stock or stockholders. Includes adjustments to additional paid in capital. There are two major categories of additional paid in capital- 1) Paid in capital in excess of par/stated value, which is the difference between the actual issue price of the shares and the shares’ par/stated value. 2) Paid in capital from other transactions which includes treasury stock, retirement of stock, stock dividends recorded at market, lapse of stock purchase warrants, conversion of convertible bonds in excess of the par value of the stock, and any other additional capital from the company’s own stock transactions.
+          capitalStock:
+            type: integer
+            description: The total amount of stock authorized for issue by a corporation, including common and preferred stock.
+          cashAndCashEquivalents:
+            type: integer
+            description: Includes unrestricted cash on hand, money market instruments and other debt securities which can be converted to cash immediately.
+          cashCashEquivalentAndMarketableSecurities:
+            type: integer
+            description: The aggregate amount of cash, cash equivalents, and marketable securities.
+          commonStock:
+            type: integer
+            description: Common stock (all issues) at par value, as reported within the Stockholder’s Equity section of the balance sheet; i.e. it is one component of Common Stockholder’s Equity
+          currentAssets:
+            type: integer
+            description: The total amount of assets considered to be convertible into cash within a relatively short period of time, usually a year.
+          currentDebtAndCapitalLeaseOblication:
+            type: integer
+            description: All borrowings due within one year including current portions of long-term debt and capital leases as well as short-term debt such as bank loans and commercial paper.
+          currentLiabilities:
+            type: integer
+            description: The debts or obligations of the firm that are due within one year.
+          currentCapitalLeaseObligation:
+            type: integer
+            description: Represents the total amount of long-term capital leases that must be paid within the next accounting period. Capital lease obligations are contractual obligations that arise from obtaining the use of property or equipment via a capital lease contract.
+          nonCurrentDeferredLiabilities:
+            type: integer
+            description: Represents the non-current portion of obligations, which is a liability that usually would have been paid but is now past due.
+          currentDeferredLiabilities:
+            type: integer
+            description: Represents the current portion of obligations, which is a liability that usually would have been paid but is now past due.
+          currentDeferredRevenue:
+            type: integer
+            description: Represents collections of cash or other assets related to revenue producing activity for which revenue has not yet been recognized. Generally, an entity records deferred revenue when it receives consideration from a customer before achieving certain criteria that must be met for revenue to be recognized in conformity with GAAP. It can be either current or non-current item. Also called unearned revenue.
+          nonCurrentDeferredRevenue:
+            type: integer
+            description: The non-current portion of deferred revenue amount as of the balance sheet date. Deferred revenue is a liability related to revenue producing activity for which revenue has not yet been recognized, and is not expected be recognized in the next twelve months.
+          grossPpe:
+            type: integer
+            description: Carrying amount at the balance sheet date for long-lived physical assets used in the normal conduct of business and not intended for resale. This can include land, physical structures, machinery, vehicles, furniture, computer equipment, construction in progress, and similar items. Amount does not include depreciation.
+          inventory:
+            type: integer
+            description: A company's merchandise, raw materials, and finished and unfinished products which have not yet been sold.
+          longTermDebt:
+            type: integer
+            description: Sum of the carrying values as of the balance sheet date of all long-term debt, which is debt initially having maturities due after one year or beyond the operating cycle, if longer, but excluding the portions thereof scheduled to be repaid within one year or the normal operating cycle, if longer. Long-term debt includes notes payable, bonds payable, mortgage loans, convertible debt, subordinated debt and other types of long term debt.
 
 
 parameters:
@@ -1035,6 +1052,7 @@ parameters:
     name: reportType
     in: query
     description: TTM, A (as originally reported), R (restated). P (Preliminary anouncements)
+    type: string
     default: A
     enum:
       - TTM
