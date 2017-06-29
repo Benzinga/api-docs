@@ -124,6 +124,7 @@ definitions:
               $ref: '#/definitions/alphaBeta'
             processingTimeMillis:
               type: integer
+ 
   FundamentalsEarningRatiosResponse:
     type: object
     properties:
@@ -158,31 +159,31 @@ definitions:
                   type: string
                 aorOrRestate:
                   type: string
-                fiscalYearEnd:
-                  type: integer
-                dilutedEpsGrowth:
-                  type: number
-                  format: float
-                  description: The growth in the company’s diluted earnings per share (EPS) on a percentage basis. Morningstar calculates the annualized growth percentage based on the underlying diluted EPS reported in the Income Statement within the company filings or reports.
-                dilutedConstEpsGrowth:
-                  type: number
-                  format: float
-                  description: The growth in the company’s diluted EPS from continuing operations on a percentage basis. Morningstar calculates the annualized growth percentage based on the underlying diluted EPS from continuing operations reported in the Income Statement within the company filings or reports.
-                dpsGrowth:
-                  type: number
-                  format: float
-                  description: The growth in the company’s dividends per share (DPS) on a percentage basis. Morningstar calculates the annualized growth percentage based on the underlying DPS from its dividend database. Morningstar collects its DPS from company filings and reports, as well as from third party sources.
-                equityPerShareGrowth:
-                  type: number
-                  format: float
-                  description: The growth in the company’s book value per share on a percentage basis. Morningstar calculates the annualized growth percentage based on the underlying equity and end of period shares outstanding reported in the company filings or reports.
-                symbol:
-                  type: string
-                idType:
-                  type: string
-                id:
-                  type: string
-            
+            fiscalYearEnd:
+              type: integer
+            dilutedEpsGrowth:
+              type: number
+              format: float
+              description: The growth in the company’s diluted earnings per share (EPS) on a percentage basis. Morningstar calculates the annualized growth percentage based on the underlying diluted EPS reported in the Income Statement within the company filings or reports.
+            dilutedConstEpsGrowth:
+              type: number
+              format: float
+              description: The growth in the company’s diluted EPS from continuing operations on a percentage basis. Morningstar calculates the annualized growth percentage based on the underlying diluted EPS from continuing operations reported in the Income Statement within the company filings or reports.
+            dpsGrowth:
+              type: number
+              format: float
+              description: The growth in the company’s dividends per share (DPS) on a percentage basis. Morningstar calculates the annualized growth percentage based on the underlying DPS from its dividend database. Morningstar collects its DPS from company filings and reports, as well as from third party sources.
+            equityPerShareGrowth:
+              type: number
+              format: float
+              description: The growth in the company’s book value per share on a percentage basis. Morningstar calculates the annualized growth percentage based on the underlying equity and end of period shares outstanding reported in the company filings or reports.
+      symbol:
+        type: string
+      idType:
+        type: string
+      id:
+        type: string
+        
   FundamentalsValuationRatiosResponse:
     type: object
     properties:
