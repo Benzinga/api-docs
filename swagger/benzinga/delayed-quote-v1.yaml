@@ -1,56 +1,65 @@
-swagger: "2.0"
+---
+swagger: '2.0'
 info:
-  version: "1.0"
+  version: '1.0'
   title: Delayed Quote
   description: Benzinga Delayed Quote REST API
 host: api.benzinga.com
 basePath: /api/v1
 schemes:
-- http
-- https
+  - https
+  - http
 security:
-- token: []
+  - token: []
+securityDefinitions:
+  token:
+    type: apiKey
+    name: token
+    in: query
 paths:
   /quoteDelayed:
     get:
       summary: Get the delayed quotes.
       parameters:
-      - name: accept
-        in: header
-        type: string
-        description: Specify return format.
-        enum: ["application/json","application/xml"]
-      - name: symbols
-        in: query
-        type: string
-        format: csv
-        description: One or more comma separated symbols to specify companies to get data for.
-      - name: isin
-        in: query
-        type: string
-        format: csv
-        description: One or more comma separated isin symbols to specify companies to get data for.
-      - name: cik
-        in: query
-        type: string
-        format: csv
-        description: One or more comma separated cik identifiers to specify companies to get data for.
+        - name: accept
+          in: header
+          type: string
+          description: Specify return format.
+          enum:
+            - application/json
+            - application/xml
+        - name: symbols
+          in: query
+          type: string
+          format: csv
+          description: >-
+            One or more comma separated symbols to specify companies to get data
+            for.
+        - name: isin
+          in: query
+          type: string
+          format: csv
+          description: >-
+            One or more comma separated isin symbols to specify companies to get
+            data for.
+        - name: cik
+          in: query
+          type: string
+          format: csv
+          description: >-
+            One or more comma separated cik identifiers to specify companies to
+            get data for.
       responses:
-        200:
-          description: "success"
+        '200':
+          description: success
           schema:
-            $ref: "#/definitions/DelayedQuotesResponse"
-securityDefinitions:
-  token:
-    type: apiKey
-    name: "token"
-    in: query
+            $ref: '#/definitions/DelayedQuotesResponse'
 definitions:
   DelayedQuotesResponse:
     type: object
     properties:
       quotes:
-        type: array  
+        type: array
         items:
           type: object
           properties:
@@ -117,7 +126,7 @@ definitions:
                 last:
                   type: number
                   format: float
-                  description: Price of last open 
+                  description: Price of last open
                 tradingHalted:
                   type: boolean
                   description: Indicator if trade was halted on security
