@@ -1,8 +1,12 @@
+---
 swagger: '2.0'
 info:
-  version: "2.0.0"
+  version: '2.0.0'
   title: Calendar
-  description: This REST API returns structured data for dividends, earnings, future earnings dates, conference calls, economics, guidance, IPOs, ratings, retail sales, splits.
+  description: >-
+    This REST API returns structured data for dividends, earnings, future
+    earnings dates, conference calls, economics, guidance, IPOs, ratings, retail
+    sales, splits.
 host: api.benzinga.com
 basePath: /api/v2
 schemes:
@@ -11,7 +15,11 @@ schemes:
 produces:
   - application/json
   - application/xml
-
+securityDefinitions:
+  token:
+    type: apiKey
+    name: token
+    in: query
 paths:
   /calendar/dividends:
     get:
@@ -32,15 +40,13 @@ paths:
         - $ref: '#/parameters/parameters[updated]'
         - $ref: '#/parameters/parameters[dividend_yield_operation]'
         - $ref: '#/parameters/parameters[dividend_yield]'
-
       responses:
-        200:
+        '200':
           description: Success
           schema:
             type: array
             items:
-              $ref: "#/definitions/dividends"
-
+              $ref: '#/definitions/dividends'
   /calendar/earnings:
     get:
       summary: Returns the earnings data
@@ -56,16 +62,15 @@ paths:
         - $ref: '#/parameters/parameters[date_sort]'
         - $ref: '#/parameters/parameters[updated]'
       security:
-      - token: []
+        - token: []
       responses:
-        200:
+        '200':
           description: success
           schema:
             type: object
             properties:
               earnings:
                 $ref: '#/definitions/earnings'
-
   /calendar/splits:
     get:
       security:
@@ -82,14 +87,12 @@ paths:
         - $ref: '#/parameters/parameters[importance]'
         - $ref: '#/parameters/parameters[updated]'
       responses:
-        200:
+        '200':
           description: success
           schema:
             type: array
             items:
-              $ref: "#/definitions/splits"
-
-
+              $ref: '#/definitions/splits'
   /calendar/economics:
     get:
       security:
@@ -107,14 +110,12 @@ paths:
         - $ref: '#/parameters/parameters[updated]'
         - $ref: '#/parameters/country'
       responses:
-        200:
+        '200':
           description: success
           schema:
             type: array
             items:
-              $ref: "#/definitions/economics"
-
-
+              $ref: '#/definitions/economics'
   /calendar/guidance:
     get:
       security:
@@ -132,13 +133,12 @@ paths:
         - $ref: '#/parameters/parameters[updated]'
         - $ref: '#/parameters/country'
       responses:
-        200:
+        '200':
           description: success
           schema:
             type: array
             items:
-              $ref: "#/definitions/guidance"
-
+              $ref: '#/definitions/guidance'
   /calendar/ipos:
     get:
       security:
@@ -155,13 +155,12 @@ paths:
         - $ref: '#/parameters/parameters[importance]'
         - $ref: '#/parameters/parameters[updated]'
       responses:
-        200:
+        '200':
           description: success
           schema:
             type: array
             items:
-              $ref: "#/definitions/ipos"
-
+              $ref: '#/definitions/ipos'
   /calendar/ratings:
     get:
       security:
@@ -179,13 +178,12 @@ paths:
         - $ref: '#/parameters/parameters[updated]'
         - $ref: '#/parameters/parameters[action]'
       responses:
-        200:
+        '200':
           description: success
           schema:
             type: array
             items:
-              $ref: "#/definitions/ratings"
-
+              $ref: '#/definitions/ratings'
   /calendar/retail:
     get:
       security:
@@ -202,14 +200,12 @@ paths:
         - $ref: '#/parameters/parameters[importance]'
         - $ref: '#/parameters/parameters[updated]'
       responses:
-        200:
+        '200':
           description: success
           schema:
             type: array
             items:
-              $ref: "#/definitions/retail"
-
-
+              $ref: '#/definitions/retail'
 parameters:
   accept:
     name: accept
@@ -231,32 +227,36 @@ parameters:
     in: query
     type: integer
     description: Number of results returned. Limit 1000
-  parameters[date]:
-    name: parameters[date]
+  'parameters[date]':
+    name: 'parameters[date]'
     in: query
     type: string
     format: YYYY-MM-DD
-    description: Date to query for calendar data. Shorthand for date_from and date_to if they are the same. Defaults for latest.
-  parameters[date_from]:
-    name: parameters[date_from]
+    description: >-
+      Date to query for calendar data. Shorthand for date_from and date_to if
+      they are the same. Defaults for latest.
+  'parameters[date_from]':
+    name: 'parameters[date_from]'
     in: query
     type: string
     format: YYYY-MM-DD
     description: Date to query from point in time.
-  parameters[date_to]:
-    name: parameters[date_to]
+  'parameters[date_to]':
+    name: 'parameters[date_to]'
     in: query
     type: string
     format: YYYY-MM-DD
     description: Date to query to point in time.
-  parameters[tickers]:
-    name: parameters[tickers]
+  'parameters[tickers]':
+    name: 'parameters[tickers]'
     in: query
     type: string
     format: csv
-    description: One or more ticker symbols separated by a comma. All calendar accept this parameter. Ignored by Economics.
-  parameters[importance]: 
-    name: parameters[importance]
+    description: >-
+      One or more ticker symbols separated by a comma. All calendar accept this
+      parameter. Ignored by Economics.
+  'parameters[importance]':
+    name: 'parameters[importance]'
     in: query
     type: integer
     enum:
@@ -265,21 +265,25 @@ parameters:
       - 3
       - 4
       - 5
-    description: The importance level to filter by. Uses Greater Than or Equal To the importance indicated
-  parameters[updated]:
-    name: parameters[updated]
+    description: >-
+      The importance level to filter by. Uses Greater Than or Equal To the
+      importance indicated
+  'parameters[updated]':
+    name: 'parameters[updated]'
     in: query
     type: integer
     format: int64
-    description: Records last Updated Unix timestamp (UTC). This will force the sort order to be Greater Than or Equal to the timestamp indicated.
-  parameters[date_sort]:
-    name: parameters[date_sort]
+    description: >-
+      Records last Updated Unix timestamp (UTC). This will force the sort order
+      to be Greater Than or Equal to the timestamp indicated.
+  'parameters[date_sort]':
+    name: 'parameters[date_sort]'
     in: query
     type: string
     format: announced | ex | payable | record
     description: Dividend date field to sort on
-  parameters[dividend_yield_operation]:
-    name: parameters[dividend_yield_operation]
+  'parameters[dividend_yield_operation]':
+    name: 'parameters[dividend_yield_operation]'
     in: query
     type: string
     enum:
@@ -288,15 +292,20 @@ parameters:
       - eq
       - lte
       - lt
-    description: Specifies how to filter using dividend yield. gt = Greater Than, gte = Greater Than Equal, eq = Equal, lt = Less Than, lte = Less Than Equal
-  parameters[dividend_yield]:
-    name: parameters[dividend_yield]
+    description: >-
+      Specifies how to filter using dividend yield. gt = Greater Than, gte =
+      Greater Than Equal, eq = Equal, lt = Less Than, lte = Less Than Equal
+  'parameters[dividend_yield]':
+    name: 'parameters[dividend_yield]'
     in: query
     type: number
     format: double
-    description: The dividend yield amount to filter by. Defaults to using Equal To the amount indicated. 1 =100%eater Than or Equal To’, ‘Equal To’, ‘Less Than or Equal To’, and ‘Less Than’ filters respectively.
-  parameters[action]:
-    name: parameters[action]
+    description: >-
+      The dividend yield amount to filter by. Defaults to using Equal To the
+      amount indicated. 1 =100%eater Than or Equal To’, ‘Equal To’, ‘Less Than
+      or Equal To’, and ‘Less Than’ filters respectively.
+  'parameters[action]':
+    name: 'parameters[action]'
     in: query
     type: string
     description: Filter by a specific action
@@ -308,14 +317,12 @@ parameters:
       - Raises
       - Initiates Coverage On
       - Terminates Coverage On
-
   country:
     name: country
     in: query
     type: string
-    format: A-Z:3
+    format: 'A-Z:3'
     description: 3-Digit Country Code
-
 definitions:
   dividends:
     type: object
@@ -323,26 +330,28 @@ definitions:
       id:
         type: integer
         description: Unique ID of this entry
-      updated: 
+      updated:
         type: integer
-        description: Last updated timestamp, UTC
+        description: 'Last updated timestamp, UTC'
       active:
         type: integer
-        description: 1 = active item / 0 = delete or hide item (with field missing, assume 1)
-      date: 
+        description: >-
+          1 = active item / 0 = delete or hide item (with field missing, assume
+          1)
+      date:
         type: string
         format: YYYY-DD-MM
         description: Announced Date on calendar
       time:
         type: string
-        format: HH:MM:SS
-        description: Announced Time on Calendar, 24hr format
+        format: 'HH:MM:SS'
+        description: 'Announced Time on Calendar, 24hr format'
       ticker:
         type: string
-        description: Ticker Symbol (F, MSFT, etc...)
+        description: 'Ticker Symbol (F, MSFT, etc...)'
       exchange:
         type: string
-        description: Exchange (NYSE, NASDAQ, etc...)
+        description: 'Exchange (NYSE, NASDAQ, etc...)'
       frequency:
         type: integer
         description: Frequency of the dividend
@@ -350,7 +359,7 @@ definitions:
         type: number
         format: double
         description: Dividend value
-      dividend_prior: 
+      dividend_prior:
         type: number
         format: double
         description: Period prior dividend value
@@ -382,26 +391,28 @@ definitions:
           type: string
         updated:
           type: integer
-          description: Last updated timestamp, UTC
+          description: 'Last updated timestamp, UTC'
         active:
           type: integer
-          description: 1 = active item / 0 = delete or hide item (with field missing, assume 1)
+          description: >-
+            1 = active item / 0 = delete or hide item (with field missing,
+            assume 1)
         date:
           type: string
           description: Announced Date on Calendar
         time:
           type: string
-          format: HH:MM:SS
-          description: Announced Time on Calendar, 24hr format
+          format: 'HH:MM:SS'
+          description: 'Announced Time on Calendar, 24hr format'
         ticker:
           type: string
-          description: Ticker Symbold (F, MSFT, etc...)
+          description: 'Ticker Symbold (F, MSFT, etc...)'
         importance:
           type: integer
           description: Subjective Basis of How Important Event is to Market. 5=High
         period:
           type: string
-          format: Q[1-4]
+          format: 'Q[1-4]'
           description: Period of the earnings actual
         period_year:
           type: integer
@@ -437,35 +448,37 @@ definitions:
       id:
         type: integer
         description: Unique ID of this entry
-      updated: 
+      updated:
         type: integer
-        description: Last updated timestamp, UTC
+        description: 'Last updated timestamp, UTC'
       active:
         type: integer
-        description: 1 = active item / 0 = delete or hide item (with field missing, assume 1)
+        description: >-
+          1 = active item / 0 = delete or hide item (with field missing, assume
+          1)
       date:
         type: string
         format: YYYY-DD-MM
         description: Announced Date on calendar
       time:
         type: string
-        format: HH:MM:SS
-        description: Announced Time on Calendar, 24hr format
+        format: 'HH:MM:SS'
+        description: 'Announced Time on Calendar, 24hr format'
       ticker:
         type: string
-        description: Ticker Symbol (F, MSFT, etc...)
+        description: 'Ticker Symbol (F, MSFT, etc...)'
       exchange:
         type: string
-        description: Exchange (NYSE, NASDAQ, etc...)
+        description: 'Exchange (NYSE, NASDAQ, etc...)'
       importance:
         type: string
         format: 0-5
         description: Subjective Basis of How Important Event is to Market. 5=high
       ratio:
         type: string
-        format: x/x 
+        format: x/x
         description: Ratio of the split
-      optionable: 
+      optionable:
         type: string
         description: is the script optionable?
       date_ex:
@@ -480,7 +493,6 @@ definitions:
         type: string
         format: YYYY-MM-DD
         description: Distribution date
-      
   economics:
     type: object
     properties:
@@ -492,17 +504,17 @@ definitions:
         format: YYYY-MM-DD
       time:
         type: string
-        format: HH:MM
-        description: Announced Time on Calendar, 24hr format
+        format: 'HH:MM'
+        description: 'Announced Time on Calendar, 24hr format'
       country:
         type: string
-        description: 3-Character Country Code (USA, CA, etc...)
+        description: '3-Character Country Code (USA, CA, etc...)'
       event_name:
         type: string
         description: Economic Event
       event_period:
         type: string
-        description: Period of Time (Q1, September, Third Week of August,...)
+        description: 'Period of Time (Q1, September, Third Week of August,...)'
       period_year:
         type: string
         description: Period Year
@@ -518,11 +530,10 @@ definitions:
         type: string
       updated:
         type: integer
-        description: Last updated timestamp, UTC
+        description: 'Last updated timestamp, UTC'
       description:
         type: string
         description: Event Description
-
   guidance:
     type: object
     properties:
@@ -535,14 +546,14 @@ definitions:
         description: Announced Date on Calendar
       time:
         type: string
-        format: HH:MM:SS
-        description: Announced Time on Calendar, 24hr format
+        format: 'HH:MM:SS'
+        description: 'Announced Time on Calendar, 24hr format'
       ticker:
         type: string
         description: Ticker symbol of company guidance data is for
       exchange:
         type: string
-        description: Exchange (NYSE, NASDAQ, etc...)
+        description: 'Exchange (NYSE, NASDAQ, etc...)'
       name:
         type: string
         description: The name of the publicly traded company that the guidance data is for
@@ -562,8 +573,8 @@ definitions:
         type: string
         format: B
         enum:
-          - Y
-          - N
+          - 'Y'
+          - 'N'
         description: Yes or No for if guidance is a preliminary earnings report
       eps_guidance_est:
         type: string
@@ -587,7 +598,7 @@ definitions:
         description: Adjusted EPS from Prior Period Min
       importance:
         type: string
-        format: N
+        format: 'N'
         enum:
           - 1
           - 2
@@ -598,8 +609,7 @@ definitions:
       updated:
         type: integer
         format: int64
-        description: Last updated timestamp, UTC
-
+        description: 'Last updated timestamp, UTC'
   ipos:
     type: object
     properties:
@@ -612,14 +622,14 @@ definitions:
         description: Date of IPO
       time:
         type: string
-        format: HH:MM:SS
+        format: 'HH:MM:SS'
         description: Time of IPO
       ticker:
         type: string
         description: Ticker symbol for IPO
       exchange:
         type: string
-        description: Exchange (NYSE, NASDAQ, etc...)
+        description: 'Exchange (NYSE, NASDAQ, etc...)'
       name:
         type: string
         description: The name of the publicly traded company that the guidance data is for
@@ -668,14 +678,13 @@ definitions:
       updated:
         type: integer
         format: int64
-        description: Last updated timestamp, UTC
+        description: 'Last updated timestamp, UTC'
       lead_underwriters:
         type: array
         items:
           type: string
           description: Name of lead underwriter for IPO
         description: List of lead underwriter(s)
-
   ratings:
     type: object
     properties:
@@ -696,14 +705,14 @@ definitions:
         description: URI for analyst ratings news articles for this ticker on Benzinga.com
       time:
         type: string
-        format: HH:MM:SS
+        format: 'HH:MM:SS'
         description: Time for rating
       ticker:
         type: string
         description: Ticker symbol of company that is subject of rating
       exchange:
         type: string
-        description: Exchange (NYSE, NASDAQ, etc...)
+        description: 'Exchange (NYSE, NASDAQ, etc...)'
       name:
         type: string
         description: Name of company that is subject of rating
@@ -746,11 +755,10 @@ definitions:
       updated:
         type: integer
         format: int64
-        description: Last updated timestamp, UTC
+        description: 'Last updated timestamp, UTC'
       analyst:
         type: string
         description: Name of the analyst firm that published the rating
-
   retail:
     type: object
     properties:
@@ -763,14 +771,14 @@ definitions:
         description: Date for rating
       time:
         type: string
-        format: HH:MM:SS
+        format: 'HH:MM:SS'
         description: Time for rating
       ticker:
         type: string
         description: Ticker symbol of company that is subject of rating
       exchange:
         type: string
-        description: Exchange (NYSE, NASDAQ, etc...)
+        description: 'Exchange (NYSE, NASDAQ, etc...)'
       name:
         type: string
         description: Name of company that is subject of rating
@@ -803,10 +811,4 @@ definitions:
       updated:
         type: integer
         format: int64
-        description: Last updated timestamp, UTC
-
-securityDefinitions:
-  token:
-    type: apiKey
-    name: "token"
-    in: query 
+        description: 'Last updated timestamp, UTC'
