@@ -5,44 +5,92 @@ info:
   title: VETR API
 
 schemes:
-  - http
   - https
+  - http
 
 produces:
   - application/json
   - application/xml
 
 paths:
-  /api/v2/calendar/vetr_url:
+  /api/v2/calendar/vetr_watchlist_holdings:
     get:
-      description: |
-        Gets `VETR Watchlist Holdings` objects.
+      description: >-
+        Gets `Vetr URL` objects.
+
+        This is a list of watchlist holdings
+        for every user on the platform
       parameters:
-        - in: query
-          name: created
-          description: Query by any record created since given value
-          required: false
-          type: number
-        - in: query
-          name: updated
-          description: Query by any record updated since given value
-          required: false
-          type: number
-        - in: query
-          name: ticker
-          description: One or more ticker symbol separate by a comma (,)
-          required: false
-          type: string
-        - in: query
-          name: pagesize
-          description: Number of values to include. Limit varies by client. Default 10
-          required: false
-          type: integer
-          format: int64
+        - $ref: '#/parameters/accept'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/pagesize'
+        - $ref: '#/parameters/created'
+        - $ref: '#/parameters/updated'
+        - $ref: '#/parameters/date'
+        - $ref: '#/parameters/date_from'
+        - $ref: '#/parameters/date_to'
+        - $ref: '#/parameters/tickers'
       security:
         - token: []
       responses:
-        200:
+        '200':
+          description: Successful response
+          schema:
+            title: Array of Holdings
+            type: array
+            items:
+              type: object
+              properties:
+                definitions:
+                  $ref: "#/definitions/vetr_watchlist_holdings"
+
+  /api/v2/calendar/vetr_url:
+    get:
+      description: >-
+        Gets `Vetr Watchlist Holdings` objects.
+      parameters:
+        - $ref: '#/parameters/accept'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/pagesize'
+        - $ref: '#/parameters/created'
+        - $ref: '#/parameters/updated'
+        - $ref: '#/parameters/date'
+        - $ref: '#/parameters/date_from'
+        - $ref: '#/parameters/date_to'
+
+      security:
+        - token: []
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            title: Array of URLs
+            type: array
+            items:
+              type: object
+              properties:
+                definitions:
+                  $ref: "#/definitions/vetr_url"
+
+  /api/v2/calendar/vetr_social_profiles:
+    get:
+      description: >-
+        Gets `Vetr Social Profile` objects.
+
+        Social accounts connected to profile
+      parameters:
+        - $ref: '#/parameters/accept'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/pagesize'
+        - $ref: '#/parameters/created'
+        - $ref: '#/parameters/updated'
+        - $ref: '#/parameters/date'
+        - $ref: '#/parameters/date_from'
+        - $ref: '#/parameters/date_to'
+      security:
+        - token: []
+      responses:
+        '200':
           description: Successful response
           schema:
             title: ArrayOfUrls
@@ -51,46 +99,348 @@ paths:
               type: object
               properties:
                 definitions:
-                  $ref: "#/definitions/vetr_url"
-  /api/v2/calendar/vetr_watchlist_holdings:
+                  $ref: "#/definitions/vetr_social_profiles"
+
+  /api/v2/calendar/vetr_security_master:
     get:
-      description: |
-        Gets `VETR Watchlist Holdings` objects.
+      description: >-
+        Gets `Vetr Security Master` objects.
+
+        List of securities on Vetr
       parameters:
-        - in: query
-          name: created
-          description: Query by any record created since given value
-          required: false
-          type: number
-        - in: query
-          name: updated
-          description: Query by any record updated since given value
-          required: false
-          type: number
-        - in: query
-          name: ticker
-          description: One or more ticker symbol separate by a comma (,)
-          required: false
-          type: string
-        - in: query
-          name: pagesize
-          description: Number of values to include. Limit varies by client. Default 10
-          required: false
-          type: integer
-          format: int64
+        - $ref: '#/parameters/accept'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/pagesize'
+        - $ref: '#/parameters/created'
+        - $ref: '#/parameters/updated'
+        - $ref: '#/parameters/date'
+        - $ref: '#/parameters/date_from'
+        - $ref: '#/parameters/date_to'
+        - $ref: '#/parameters/tickers'
       security:
         - token: []
       responses:
-        200:
+        '200':
           description: Successful response
           schema:
-            title: ArrayOfHoldings
+            title: Array of Securities
             type: array
             items:
               type: object
               properties:
                 definitions:
-                  $ref: "#/definitions/vetr_watchlist_holdings"
+                  $ref: "#/definitions/vetr_security_master"
+
+  /api/v2/calendar/vetr_security_aggregate_ratings:
+    get:
+      description: >-
+        Gets `Vetr Security Aggregate ratings` objects.
+
+        Aggregated rating score and crowd consensus
+        of each security calculated daily
+      parameters:
+        - $ref: '#/parameters/accept'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/pagesize'
+        - $ref: '#/parameters/created'
+        - $ref: '#/parameters/updated'
+        - $ref: '#/parameters/date'
+        - $ref: '#/parameters/date_from'
+        - $ref: '#/parameters/date_to'
+      security:
+        - token: []
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            title: Array of Ratings
+            type: array
+            items:
+              type: object
+              properties:
+                definitions:
+                  $ref: "#/definitions/vetr_security_aggregate_ratings"
+
+  /api/v2/calendar/vetr_recommendation_ratings:
+    get:
+      description: >-
+        Gets `Vetr Recommendation Ratings` objects.
+
+        Daily calculated performance return
+        for every active rating
+      parameters:
+        - $ref: '#/parameters/accept'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/pagesize'
+        - $ref: '#/parameters/created'
+        - $ref: '#/parameters/updated'
+        - $ref: '#/parameters/date'
+        - $ref: '#/parameters/date_from'
+        - $ref: '#/parameters/date_to'
+      security:
+        - token: []
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            title: Array of Ratings
+            type: array
+            items:
+              type: object
+              properties:
+                definitions:
+                  $ref: "#/definitions/vetr_recommendation_ratings"
+
+  /api/v2/calendar/vetr_profiles:
+    get:
+      description: >-
+        Gets `Vetr Profile` objects.
+
+        List of all profiles on Vetr
+      parameters:
+        - $ref: '#/parameters/accept'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/pagesize'
+        - $ref: '#/parameters/created'
+        - $ref: '#/parameters/updated'
+        - $ref: '#/parameters/date'
+        - $ref: '#/parameters/date_from'
+        - $ref: '#/parameters/date_to'
+      security:
+        - token: []
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            title: Array of Profiles 
+            type: array
+            items:
+              type: object
+              properties:
+                definitions:
+                  $ref: "#/definitions/vetr_profiles"
+
+
+  /api/v2/calendar/vetr_profile_performance:
+    get:
+      description: >-
+        Gets `Vetr Profile` objects.
+
+        This is the performance data
+        of all active users on Vetr
+      parameters:
+        - $ref: '#/parameters/accept'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/pagesize'
+        - $ref: '#/parameters/created'
+        - $ref: '#/parameters/updated'
+        - $ref: '#/parameters/date'
+        - $ref: '#/parameters/date_from'
+        - $ref: '#/parameters/date_to'
+      security:
+        - token: []
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            title: Array of Profile Performance
+            type: array
+            items:
+              type: object
+              properties:
+                definitions:
+                  $ref: "#/definitions/vetr_profile_performance"
+
+
+  /api/v2/calendar/vetr_pages:
+    get:
+      description: >-
+        Gets `Vetr Profile` objects.
+      parameters:
+        - $ref: '#/parameters/accept'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/pagesize'
+        - $ref: '#/parameters/created'
+        - $ref: '#/parameters/updated'
+        - $ref: '#/parameters/date'
+        - $ref: '#/parameters/date_from'
+        - $ref: '#/parameters/date_to'
+      security:
+        - token: []
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            title: Array of Pages
+            type: array
+            items:
+              type: object
+              properties:
+                definitions:
+                  $ref: "#/definitions/vetr_pages"
+
+
+  /api/v2/calendar/vetr_all_ratings:
+    get:
+      description: >-
+        Gets `Vetr Profile` objects.
+
+        Includes all ratings/recommendations
+        created by users on Vetr, without any filter.
+        Includes expired and previously issued ratings
+      parameters:
+        - $ref: '#/parameters/accept'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/pagesize'
+        - $ref: '#/parameters/created'
+        - $ref: '#/parameters/updated'
+        - $ref: '#/parameters/date'
+        - $ref: '#/parameters/date_from'
+        - $ref: '#/parameters/date_to'
+        - $ref: '#/parameters/tickers'
+      security:
+        - token: []
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            title: Array of Ratings
+            type: array
+            items:
+              type: object
+              properties:
+                definitions:
+                  $ref: "#/definitions/vetr_all_ratings"
+
+  /api/v2/calendar/vetr_all_posts:
+    get:
+      description: >-
+        Gets `Vetr Profile` objects.
+
+        All non-rating text/article
+        posts on Vetr
+      parameters:
+        - $ref: '#/parameters/accept'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/pagesize'
+        - $ref: '#/parameters/created'
+        - $ref: '#/parameters/updated'
+        - $ref: '#/parameters/date'
+        - $ref: '#/parameters/date_from'
+        - $ref: '#/parameters/date_to'
+        - $ref: '#/parameters/tickers'
+      security:
+        - token: []
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            title: Array of Posts
+            type: array
+            items:
+              type: object
+              properties:
+                definitions:
+                  $ref: "#/definitions/vetr_all_posts"
+
+
+  /api/v2/calendar/vetr_all_active_ratings:
+    get:
+      description: >-
+        Gets `Vetr Profile` objects.
+        Only active ratings - active ratings
+        are ratings that haven't expired or closed
+      parameters:
+        - $ref: '#/parameters/accept'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/pagesize'
+        - $ref: '#/parameters/created'
+        - $ref: '#/parameters/updated'
+        - $ref: '#/parameters/date'
+        - $ref: '#/parameters/date_from'
+        - $ref: '#/parameters/date_to'
+        - $ref: '#/parameters/tickers'
+      security:
+        - token: []
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            title: Array of Ratings
+            type: array
+            items:
+              type: object
+              properties:
+                definitions:
+                  $ref: "#/definitions/vetr_all_active_ratings"
+
+parameters:
+  accept:
+    name: accept
+    in: header
+    description: >-
+      Specifies return format.
+      Query parameters work the same for both formats.
+    type: string
+    enum:
+      - application/json
+      - application/xml
+    default: application/xml
+  page:
+    name: page
+    in: query
+    type: integer
+    description: Page offset.
+    default: 0
+  pagesize:
+    name: pagesize
+    in: query
+    type: integer
+    description: Number of results returned. Limit 1000
+  updated:
+    name: updated
+    in: query
+    type: integer
+    description: >-
+      Records updated since last Updated Unix timestamp (UTC).
+      This will force the sort orderto be Greater Than or Equal
+      to the timestamp indicated.
+  created:
+    name: created
+    in: query
+    type: integer
+    description: >-
+      Records created since last Created Unix timestamp (UTC).
+      This will force the sort order to be Greater Than or Equal
+      to the timestamp indicated.
+  date:
+    name: 'parameters[date]'
+    in: query
+    type: string
+    format: YYYY-MM-DD
+    description: >-
+      Date to query for data. Shorthand for date_from and date_to if
+      they are the same. Defaults for latest.
+  date_from:
+    name: 'parameters[date_from]'
+    in: query
+    type: string
+    format: YYYY-MM-DD
+    description: Date to query from point in time.
+  date_to:
+    name: 'parameters[date_to]'
+    in: query
+    type: string
+    format: YYYY-MM-DD
+    description: Date to query to point in time.
+  tickers:
+    name: 'parameters[tickers]'
+    in: query
+    type: string
+    format: csv
+    description: >-
+      One or more ticker symbols separated by a comma.
+
 securityDefinitions:
   token:
     type: apiKey
@@ -99,52 +449,872 @@ securityDefinitions:
 definitions:
   vetr_url:
     type: object
-    required:
-      - vetr_id
-      - event
-      - event_type
-      - context_page_path
-      - label
     properties:
-      vetr_id:
+      id:
         type: string
-      event:
-        type: string
-      event_type:
-        type: string
-      context_page_path:
-        type: string
-      label:
-        type: number
-        format: double
-      created:
-        type: number
-        format: double
-      updated:
-        type: number
-        format: double
-  vetr_watchlist_holdings:
-    type: object
-    required:
-      - date
-      - time
-      - ticker
-      - published_to_slug
-      - created_on
-    properties:
+        description: Unique identifier
       date:
         type: string
-        description: Date created
+        format: YYYY-MM-DD
+        description: Date converted from created_on field
       time:
         type: string
-        description: Date created
+        format: HH:MM:SS
+        description: Time converted from created_on field
+      updated:
+        type: integer
+        format: int64
+        description: Unix timestamp UTC  updated in Benzinga
+      vetr_id:
+        type: string
+        description: Vetr's uinique identifier
+      event:
+        type: string
+        description: url - fixed value
+      event_type:
+        type: string
+        description: click - fixed value
+      context_page_path:
+        type: string
+        description: Page outbound link was clicked
+      label:
+        type: string
+        format: URI
+        description: URI fro URL
+      created_on:
+        type: string
+        format: ISO date
+        description: Vetr's created date
+
+  vetr_watchlist_holdings:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique identifier
+      date:
+        type: string
+        format: YYYY-MM-DD
+        description: Date converted from created_on field
+      time:
+        type: string
+        format: HH:MM:SS
+        description: Time converted from created_on field
       ticker:
         type: string
+        description: Ticker symbol of public company
+      updated:
+        type: integer
+        format: int64
+        description: Unix timestamp UTC  updated in Benzinga
       published_to_slug:
         type: string
+        description: Profile this ticker belongs to
       created_on:
-        type: number
-        format: double
+        type: string
+        format: ISO date
+        description: Vetr's created date
+
+
+  vetr_social_profiles:
+    type: object
+    properties:
+      id:
+        type: string
+        description: unique identifier
+      date:
+        type: string
+        format: yyyy-mm-dd
+        description: date imported into benzinga
+      time:
+        type: string
+        format: hh:mm:ss
+        description: time imported into benzinga
       updated:
-        type: number
-        format: double
+        type: integer
+        format: int64
+        description: unix timestamp utc updated in benzinga
+      social_profile_id:
+        type: string
+        description: vetr's uninque identifier
+      profile_slug:
+        type: string
+        description: profile name
+      provider_id:
+        type: string
+        description: profile type
+      profile_json:
+        type: string
+        format: json
+        description: data associated with profile
+
+  vetr_security_master:
+    type: object
+    properties:
+      id:
+        type: string
+        description: unique identifier
+      ticker:
+        type: string
+        description: Ticker symbol of public company
+      date:
+        type: string
+        format: yyyy-mm-dd
+        description: Date converted from created_on field
+      time:
+        type: string
+        format: hh:mm:ss
+        description: Time converted from created_on field
+      updated:
+        type: integer
+        format: int64
+        description: Unix timestamp UTC  updated in Benzinga
+      security_master_id:
+        type: string
+        description: Vetr's uninque identifier
+      company:
+        type: string
+        description: Name of company
+      exchange:
+        type: string
+        description: Name of exchange
+      active_from:
+        type: string
+        description: Date security added to Vetr's system
+      active_to:
+        type: string
+        description: Date securty is delisted
+      is_active:
+        type: boolean
+        description: Is FALSE if delisted. TRUE if traded.
+      created_on:
+        type: string
+        format: ISO date
+        description: Vetr's created date time
+      last_updated:
+        type: string
+        format: ISO date
+        description: Vetr's updated date time
+      sector:
+        type: string
+        description: Sector for company
+      industry:
+        type: string
+        description: Industry for company
+      sic_sector:
+        type: string
+        description: SIC Sector
+      security_wall_id:
+        type: string
+        description: >-
+          ID shared between two securities
+          that need to be grouped together,
+          example GOOG and GOOGL
+      is_etf:
+        type: boolean
+        description: Company is an Echange Traded Fund
+      is_manual_entry:
+        type: boolean
+        description: Is manual entry
+      split_on:
+        type: string
+        description: Stock split date/time
+      mds_ticker:
+        type: string
+        description: MDS ticker
+      sec_type:
+        type: string
+        description: SEC type
+      remark:
+        type: string
+        description: Comments
+      search_priority:
+        type: string
+        description: Search priority on Vetr
+      is_visible_search:
+        type: boolean
+        description: Is visible in search on Vetr
+      is_ipo:
+        type: boolean
+        description: Is IPO
+      website:
+        type: string
+        description: Website for company
+
+  vetr_security_aggregate_ratings:
+    type: object
+    properties:
+      id:
+        type: string
+        description: unique identifier
+      date:
+        type: string
+        format: yyyy-mm-dd
+        description: Date converted from create_date field
+      time:
+        type: string
+        format: hh:mm:ss
+        description: Time converted from create_date field
+      updated:
+        type: integer
+        format: int64
+        description: Unix timestamp UTC updated in Benzinga
+      security_aggregate_ratings_id:
+        type: string
+        description: Vetr's unique identifier for these rows
+      security_master_id:
+        type: string
+        description: >-
+          Vetr's unique identifier to match data
+          from this endpoint with security_master
+      agg_rating_compute_date:
+        type: string
+        format: YYYY-MM-DD
+        description: Date data is computed
+      agg_rating_score:
+        type: string
+        description: 
+      total_number_of_ratings:
+        type: string
+        description: Total BEARISH and BULLISH ratings for a company/ticker
+      bullish_count:
+        type: string
+        description: Number of BULLISH ratings for company/ticker
+      bearish_count:
+        type: string
+        description: Number of BEARISH ratings for company/ticker
+      is_current:
+        type: boolean
+        description: TRUE if before expire date
+      is_valid:
+        type: boolean
+        description: Is valid
+      create_date:
+        type: string
+        format: ISO date
+        description: Vetr's created date/time
+      target_price_3m_avg:
+        type: string
+        description: Crowd consensus target price average for 3m
+      target_price_3m_pct:
+        type: string
+        description: Crowd consensus target by percent for 3m
+      target_price_6m_av:
+        type: string
+        description: Crowd consensus target price average for 6m
+      target_price_6m_pct:
+        type: string
+        description: Crowd consensus target by percent for 6m
+      target_price_9m_avg:
+        type: string
+        description: Crowd consensus target price average for 9m
+      target_price_9m_pct:
+        type: string
+        description: Crowd consensus target by percent for 9m
+      target_price_12m_avg:
+        type: string
+        description: Crowd consensus target price average for 12m
+      target_price_12m_pct:
+        type: string
+        description: Crowd consensus target by percent for 12mm
+      current_price:
+        type: string
+        format: float
+        description: Current price updated daily
+      direction:
+        type: string
+        description: Direction
+      previous_rating_score:
+        type: string
+        description: Previous rating score
+      total_buys:
+        type: string
+        description: Total number of buy ratings
+      total_sells:
+        type: string
+        description: Total number of sell ratings
+      total_holds:
+        type: string
+        description: Total number of hold ratings
+      price_at_change:
+        type: string
+        description: Price at rating change
+        format: float
+      change_date:
+        type: string
+        format: YYYY-MM-DD
+        description: Date of rating change
+      prevsecurity_aggregate_rating_id:
+        type: string
+        description: Previous security aggregate rating id
+      has_organic_ratings:
+        type: boolean
+        description: Has organic ratings
+      target_price_3m_avg_organic:
+        type: string
+        description: Organic target price 3m average 
+      target_price_3m_pct_organic:
+        type: string
+        description: Organic target price 3m percentage
+      target_price_6m_avg_organic:
+        type: string
+        description: Organic target price 6m average
+      target_price_6m_pct_organic:
+        type: string
+        description: Organic target price 6m percentage
+      target_price_3m_avg_automated:
+        type: string
+        description: Automated target price 3m average
+      target_price_3m_pct_automated:
+        type: string
+        description: Automated target price 3m percentage
+      target_price_6m_avg_automated:
+        type: string
+        description: Automated target price 6m average
+      target_price_6m_pct_automated:
+        type: string
+        description: Automted target price 6m percentage
+      total_strong_sell_rating:
+        type: string
+        description: Total strong sell rating
+      total_sell_rating:
+        type: string
+        description: Total sell rating
+      total_hold_rating:
+        type: string
+        description: Total hold rating
+      total_buy_rating:
+        type: string
+        description: Total buy rating
+      total_strong_buy_rating:
+        type: string
+        description: Total strong buy rating
+      target_price_avg:
+        type: string
+        description: Target price average
+      target_price_pct:
+        type: string
+        description: Target price percentage
+      target_price_avg_organic:
+        type: string
+        description: Organic target price average
+      target_price_pct_organic:
+        type: string
+        description: Organic target price percentage
+      target_price_avg_automated:
+        type: string
+        description: Automated target price average
+      target_price_pct_automated:
+        type: string
+        description: Automated target price percentage
+
+  vetr_recommendation_ratings:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique identifier
+      date:
+        type: string
+        format: yyyy-mm-dd
+        description: Date converted from create_date field
+      time:
+        type: string
+        format: hh:mm:ss
+        description: Time converted from create_date field
+      updated:
+        type: integer
+        format: int64
+        description: unix timestamp utc updated in benzinga
+      recommendation_rating_id:
+        type: string
+        description: Vetr's unique identifier
+      recommendation_id:
+        type: string
+        description: Used to match these rows rows from all_ratings and all_active_ratings
+      rating_compute_date:
+        type: string
+        format: YYYY-MM-DD
+        description: Date data is calculated
+      rating_score:
+        type: string
+        description: Score 1-5
+      rating_pct_to_target:
+        type: string
+        description: Percentage difference between current and target price
+      last_market_price:
+        type: string
+        format: float
+        description: Market price at time of data calculation
+      is_current:
+        type: boolean
+        description: TRUE if it's the latest entry for this recommendation
+      create_date:
+        type: string
+        format: ISO date
+        description: Vetr's created date
+      skill_points:
+        type: string
+        description: Skill points
+      skill_points_total:
+        type: string
+        description: Skill points total
+      skill_points_price_dev:
+        type: string
+        description: Skill points price dev
+      rating_target_price_met:
+        type: boolean
+        description: TRUE if rating met it's target price
+      return_pct:
+        type: string
+        format: float
+        description: The upside/downside of this rating. Percentage change between target and current price
+      target_price_off:
+        type: boolean
+        description: TRUE if rating has overshot it's target price
+      is_outlier:
+        type: boolean
+        description: TRUE if system has qualified this rating as an outlier
+      outlier_reason:
+        type: string
+        description: Gives reason for outlier status if is_outlier is TRUE
+      current_rating:
+        type: string
+        description: Current rating
+
+  vetr_profiles:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique identifier
+      date:
+        type: string
+        format: yyyy-mm-dd
+        description: Date converted from create_date field
+      time:
+        type: string
+        format: hh:mm:ss
+        description: Time converted from create_date field
+      updated:
+        type: integer
+        format: int64
+        description: unix timestamp utc updated in benzinga
+      profile_id:
+        type: string
+        description: Vetr's unique identifier
+      profile_type:
+        type: string
+        description: Can be PAGE or MEMBER, MEMBER are users on the platform
+      profile_slug:
+        type: string
+        description: Handle
+      member_id:
+        type: string
+        description: Member Id if profile_type is MEMBER
+      page_id:
+        type: string
+        description: Page id f profile_type is PAGE
+      profile_image:
+        type: string
+        description: Image URL
+      profile_description:
+        type: string
+        description: Profile description
+      created_on:
+        type: string
+        format: ISO date
+        description: Vetr's created date
+      profile_name:
+        type: string
+        description: Name of user/page
+      is_verified:
+        type: boolean
+        description:if the profile is verified (currently not used) 
+      profile_title:
+        type: string
+        description: Title of profile
+      profile_weblink:
+        type: string
+        description: Profile link
+      picture_set:
+        type: boolean
+        description: TRUE if picture is set for profile
+      is_active:
+        type: boolean
+        description: TRUE if profile is active
+      is_unclaimed:
+        type: boolean
+        description: TRUE if profile is unclaimed
+      cover_image:
+        type: string
+        description: Profile cover image
+      cover_css:
+        type: string
+        description: Profile cover CSS
+      profile_slug_alias:
+        type: string
+        description: Profile slug alias
+      is_automated:
+        type: boolean
+        description: TRUE if the profile is curated by Vetr
+      is_internal_owned:
+        type: boolean
+        description: TRUE if the profile is curated by Vetr
+      is_top_user:
+        type: boolean
+        description: TRUE if user is classified as a top rater on Vetr platform
+      club_id:
+        type: string
+        description: Club ID
+
+  vetr_profile_performance:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique identifier
+      updated:
+        type: integer
+        format: int64
+        description: unix timestamp utc updated in benzinga
+      profile_performance_id:
+        type: string
+        description: Vetr's unique identifier
+      profile_slug:
+        type: string
+        description: Slug of profile associated with this record
+      sector:
+        type: string
+        description: Sector this return is for
+      last_updated:
+        type: string
+        format: ISO date
+        description: Vetr's updated date/time
+      average_return_total:
+        type: string
+        format: float
+        description: Total average return (since 
+          signup)
+      average_return_1m:
+        type: string
+        description: 1 month return
+      average_return_3m:
+        type: string
+        description: 3 month return
+      average_return_1y:
+        type: string
+        description: 1 year return
+      number_of_ratings_total:
+        type: string
+        description: Total number of ratings
+      number_of_ratings_1m:
+        type: string
+        description: Number of ratings in past 1 month
+      number_of_ratings_3m:
+        type: string
+        description: Number of ratings in the past 3 months
+      number_of_ratings_1y:
+        type: string
+        description: Numper of ratings in the past 1  year
+      number_of_right_ratings_total:
+        type: string
+        description: Number of total ratings with a positive return
+      number_of_right_ratings_1m:
+        type: string
+        description: Number of ratings that have a correctly called a positive return 1m
+      number_of_right_ratings_3m:
+        type: string
+        description: Number of ratings that have correctly called a positive return 3m
+      number_of_right_ratings_1y:
+        type: string
+        description: Number of ratings that have correcyly called a positive return 1y
+      number_of_bearish_ratings_total:
+        type: string
+        description: Total number of BEARISH ratings
+      number_of_bearish_ratings_1m:
+        type: string
+        description: Total number of BEARISH ratings 1m
+      number_of_bearish_ratings_3m:
+        type: string
+        description: Total number of BEARISH ratings 3m
+      number_of_bearish_ratings_1y:
+        type: string
+        description: Total number of BEARISH ratings 1y
+      number_of_bullish_ratings_total:
+        type: string
+        description: Total number of BULLISH ratings
+      number_of_bullish_ratings_1m:
+        type: string
+        description: Total number of BULLISH ratings 1m
+      number_of_bullish_ratings_3m:
+        type: string
+        description:  Total number of BULLISH ratings 3m
+      number_of_bullish_ratings_1y:
+        type: string
+        description: Total number of BULLISH ratings 1y
+      created_datetime:
+        type: string
+        format: ISO date
+        description: Vetr's created date/time 
+      return_percentile_1y:
+        type: string
+        description: Percentile this person's 1y returns falls into
+      calc_date:
+        type: string
+        format: YYYY-MM-DD
+        description: Date this data is calculated
+
+
+  vetr_pages:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique identifier
+      date:
+        type: string
+        format: yyyy-mm-dd
+        description: Date converted from create_date field
+      time:
+        type: string
+        format: hh:mm:ss
+        description: Time converted from create_date field
+      updated:
+        type: integer
+        format: int64
+        description: unix timestamp utc updated in benzinga
+      vetr_id:
+        type: string
+        description: Vetr's unique identifier
+      referrer:
+        type: string
+        description: Page referrer
+      path:
+        type: string
+        description: Path parameters for page visited
+      url:
+        type: string
+        format: URI
+        description: Full URI with query params and protocol
+      context_user_agent:
+        type: string
+        format: User agent of requesting browser
+      sent_at:
+        type: string
+        format: ISO date
+        description: Date/time page was served
+      created_on:
+        type: string
+        format: ISO date
+        description: Vetr's created date for this record
+
+  vetr_all_ratings:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique identifier
+      date:
+        type: string
+        format: yyyy-mm-dd
+        description: Date converted from create_date field
+      time:
+        type: string
+        format: hh:mm:ss
+        description: Time converted from create_date field
+      ticker:
+        type: string
+        description: Ticker symbol of public company
+      updated:
+        type: integer
+        format: int64
+        description: unix timestamp utc updated in benzinga
+      recommendation_id:
+        type: string
+        description: Vetr's unique id
+      issued_by_member_id:
+        type: string
+        description: Internal member identifier
+      issued_by_profile_slug:
+        type: string
+        description: Profile slug for user that issued rating
+      rating:
+        type: string
+        description: BULLISH or BEARISH rating
+      target_price:
+        format: float
+        type: string
+        description: Target price of rating
+      issue_price:
+        type: string
+        format: float
+        description: Price of company when rating issued
+      expiry_date:
+        type: string
+        format: YYYY-MM-DD
+        description: Date that the rating expires
+      expiry_timeframe:
+        type: string
+        description: Timeframe this rating was issued for
+        enum:
+          - 1M
+          - 3M
+          - 6M
+      is_active:
+        type: boolean
+        description: If record has been deleted, is_active is false
+      is_closed:
+        type: boolean
+        description: >-
+          If this rating was closed to reissued
+          before expiry this flag will be true
+      closed_date:
+        type: string
+        format: ISO date
+        description: Date rating was closed
+      is_expired:
+        type: boolean
+        description: Has rating expired? True after expiry date
+      prior_recommendation_id:
+        type: string
+        description: >-
+          If this rating replaces a closed rating
+          the recommendation_id of the rating
+          this one replaces
+      next_recommendation_id:
+        type: string
+        description: >-
+          If this rating is closed the recomendation_id
+          of the rating that is replacing this one
+      created_on:
+        type: string
+        format: ISO date
+        description: Vetr's created date/time
+      commentary:
+        type: string
+        description: Any text, description associated with this rating
+
+  vetr_all_posts:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique identifier
+      date:
+        type: string
+        format: yyyy-mm-dd
+        description: Date converted from created_on field
+      time:
+        type: string
+        format: hh:mm:ss
+        description: Time converted from created_on field
+      ticker:
+        type: string
+        description: Ticker symbol of public company
+      updated:
+        type: integer
+        format: int64
+        description: unix timestamp utc updated in benzinga
+      article_id:
+        type: string
+        format: int
+        description: Vetr's unique identifier
+      issued_by_member_id:
+        type: string
+        format: int
+      published_to_profile_slug:
+        type: string
+        description: Slug of user that wrote post
+      article_titile:
+        type: string
+        description: Title of the article/post
+      article_text:
+        type: string
+        description: Body content of the article/post
+      created_on:
+        type: string
+        format: ISO date
+        description: Vetr's created date/time
+
+  vetr_all_active_ratings:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique identifier
+      date:
+        type: string
+        format: yyyy-mm-dd
+        description: Date converted from created_on field
+      time:
+        type: string
+        format: hh:mm:ss
+        description: Time converted from created_on field
+      ticker:
+        type: string
+        description: Ticker symbol of public company
+      updated:
+        type: integer
+        format: int64
+        description: unix timestamp utc updated in benzinga
+      recommendation_id:
+        type: string
+        description: Vetr's unique identifier
+      issued_by_member_id:
+        type: string
+        description: Vetr's internal member identifier
+      issued_by_profile_slug:
+        type: string
+        description: User's handle
+      rating:
+        type: string
+        description: BULLISH or BEARISH rating
+      target_price:
+        type: string
+        format: float
+        description: Target price for rating
+      issue_price:
+        type: string
+        format: float
+        description: Price of company when rating posted
+      expiry_date:
+        type: string
+        format: YYYY-MM-DD
+        description: Date rating expire(s/d)
+      expiry_timeframe:
+        type: string
+        description: Timeframe rating is issued for
+        enum:
+          - 1M
+          - 3M
+          - 6M
+      is_active:
+        type: boolean
+        description: If it is before rating's expire date
+      is_closed:
+          type: boolean
+          description: >-
+            TRUE if user who issued rating issued
+            a new rating that replaces this rating
+      closed_date:
+        type: string
+        format: ISO date
+        description: Date/time this rating was closed and replaced by a new rating
+      is_expired:
+        type: boolean
+        description: TRUE if current time/date is after the expire time/date
+      prior_recommendation_id:
+        type: string
+        description: If this recommendation is replacing another rating, the recommendation_id of the rating it replaces
+      next_recommendation_id:
+        type: string
+        description: If this rating was closed and replaced by a new rating, the recommendation_id of the replacing rating
+      created_on:
+        type: string
+        format: ISO date"
+        description: Vetr's created date/time
+      commentary:
+        type: string
+        description: Any additional statements issued with rating
+
