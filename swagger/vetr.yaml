@@ -12,42 +12,15 @@ produces:
   - application/json
   - application/xml
 
+host: api.benzinga.com
+basePath: /api/v2/calendar
+
 paths:
-  /api/v2/calendar/vetr_watchlist_holdings:
+
+  /vetr_url:
     get:
       description: >-
         Gets `Vetr URL` objects.
-
-        This is a list of watchlist holdings
-        for every user on the platform
-      parameters:
-        - $ref: '#/parameters/accept'
-        - $ref: '#/parameters/page'
-        - $ref: '#/parameters/pagesize'
-        - $ref: '#/parameters/created'
-        - $ref: '#/parameters/updated'
-        - $ref: '#/parameters/date'
-        - $ref: '#/parameters/date_from'
-        - $ref: '#/parameters/date_to'
-        - $ref: '#/parameters/tickers'
-      security:
-        - token: []
-      responses:
-        '200':
-          description: Successful response
-          schema:
-            title: Array of Holdings
-            type: array
-            items:
-              type: object
-              properties:
-                definitions:
-                  $ref: "#/definitions/vetr_watchlist_holdings"
-
-  /api/v2/calendar/vetr_url:
-    get:
-      description: >-
-        Gets `Vetr Watchlist Holdings` objects.
       parameters:
         - $ref: '#/parameters/accept'
         - $ref: '#/parameters/page'
@@ -72,7 +45,38 @@ paths:
                 definitions:
                   $ref: "#/definitions/vetr_url"
 
-  /api/v2/calendar/vetr_social_profiles:
+  /vetr_watchlist_holdings:
+    get:
+      description: >-
+        Gets `Vetr Watchlist Holdings` objects.
+
+        This is a list of watchlist holdings
+        for every user on the platform
+      parameters:
+        - $ref: '#/parameters/accept'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/pagesize'
+        - $ref: '#/parameters/created'
+        - $ref: '#/parameters/updated'
+        - $ref: '#/parameters/date'
+        - $ref: '#/parameters/date_from'
+        - $ref: '#/parameters/date_to'
+        - $ref: '#/parameters/tickers'
+      security:
+        - token: []
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            title: Array of Watchlist Holdings
+            type: array
+            items:
+              type: object
+              properties:
+                definitions:
+                  $ref: "#/definitions/vetr_watchlist_holdings"
+
+  /vetr_social_profiles:
     get:
       description: >-
         Gets `Vetr Social Profile` objects.
@@ -101,7 +105,7 @@ paths:
                 definitions:
                   $ref: "#/definitions/vetr_social_profiles"
 
-  /api/v2/calendar/vetr_security_master:
+  /vetr_security_master:
     get:
       description: >-
         Gets `Vetr Security Master` objects.
@@ -131,7 +135,7 @@ paths:
                 definitions:
                   $ref: "#/definitions/vetr_security_master"
 
-  /api/v2/calendar/vetr_security_aggregate_ratings:
+  /vetr_security_aggregate_ratings:
     get:
       description: >-
         Gets `Vetr Security Aggregate ratings` objects.
@@ -161,7 +165,7 @@ paths:
                 definitions:
                   $ref: "#/definitions/vetr_security_aggregate_ratings"
 
-  /api/v2/calendar/vetr_recommendation_ratings:
+  /vetr_recommendation_ratings:
     get:
       description: >-
         Gets `Vetr Recommendation Ratings` objects.
@@ -191,7 +195,7 @@ paths:
                 definitions:
                   $ref: "#/definitions/vetr_recommendation_ratings"
 
-  /api/v2/calendar/vetr_profiles:
+  /vetr_profiles:
     get:
       description: >-
         Gets `Vetr Profile` objects.
@@ -221,7 +225,7 @@ paths:
                   $ref: "#/definitions/vetr_profiles"
 
 
-  /api/v2/calendar/vetr_profile_performance:
+  /vetr_profile_performance:
     get:
       description: >-
         Gets `Vetr Profile` objects.
@@ -252,7 +256,7 @@ paths:
                   $ref: "#/definitions/vetr_profile_performance"
 
 
-  /api/v2/calendar/vetr_pages:
+  /vetr_pages:
     get:
       description: >-
         Gets `Vetr Profile` objects.
@@ -280,7 +284,7 @@ paths:
                   $ref: "#/definitions/vetr_pages"
 
 
-  /api/v2/calendar/vetr_all_ratings:
+  /vetr_all_ratings:
     get:
       description: >-
         Gets `Vetr Profile` objects.
@@ -312,7 +316,7 @@ paths:
                 definitions:
                   $ref: "#/definitions/vetr_all_ratings"
 
-  /api/v2/calendar/vetr_all_posts:
+  /vetr_all_posts:
     get:
       description: >-
         Gets `Vetr Profile` objects.
@@ -344,10 +348,10 @@ paths:
                   $ref: "#/definitions/vetr_all_posts"
 
 
-  /api/v2/calendar/vetr_all_active_ratings:
+  /vetr_all_active_ratings:
     get:
       description: >-
-        Gets `Vetr Profile` objects.
+        Gets `Vetr All Active Ratings` objects.
         Only active ratings - active ratings
         are ratings that haven't expired or closed
       parameters:
@@ -373,6 +377,62 @@ paths:
               properties:
                 definitions:
                   $ref: "#/definitions/vetr_all_active_ratings"
+
+  /vetr_upvote_downvote:
+    get:
+      description: >-
+        Gets `Vetr Upvote Downvote` objects.
+        List of all upvotes/downvotes users have made in the platform
+      parameters:
+        - $ref: '#/parameters/accept'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/pagesize'
+        - $ref: '#/parameters/created'
+        - $ref: '#/parameters/updated'
+        - $ref: '#/parameters/date'
+        - $ref: '#/parameters/date_from'
+        - $ref: '#/parameters/date_to'
+      security:
+        - token: []
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            title: Array of Upvote Downvotes
+            type: array
+            items:
+              type: object
+              properties:
+                definitions:
+                  $ref: "#/definitions/vetr_upvote_downvote"
+
+  /vetr_earned_badges:
+    get:
+      description: >-
+        Gets `Vetr Earned Badges` objects.
+        List of badges that have been awarded to users
+      parameters:
+        - $ref: '#/parameters/accept'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/pagesize'
+        - $ref: '#/parameters/created'
+        - $ref: '#/parameters/updated'
+        - $ref: '#/parameters/date'
+        - $ref: '#/parameters/date_from'
+        - $ref: '#/parameters/date_to'
+      security:
+        - token: []
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            title: Array of Earned Badges
+            type: array
+            items:
+              type: object
+              properties:
+                definitions:
+                  $ref: "#/definitions/vetr_earned_badges"
 
 parameters:
   accept:
@@ -446,7 +506,9 @@ securityDefinitions:
     type: apiKey
     name: token
     in: query
+
 definitions:
+
   vetr_url:
     type: object
     properties:
@@ -525,15 +587,15 @@ definitions:
       date:
         type: string
         format: yyyy-mm-dd
-        description: date imported into benzinga
+        description: date imported into Benzinga (Vetr does not provide created date/time for these items)
       time:
         type: string
         format: hh:mm:ss
-        description: time imported into benzinga
+        description: time imported into Benzinga (Vetr does not provide created date/time for these items)
       updated:
         type: integer
         format: int64
-        description: unix timestamp utc updated in benzinga
+        description: unix timestamp utc updated in Benzinga
       social_profile_id:
         type: string
         description: vetr's uninque identifier
@@ -673,7 +735,10 @@ definitions:
         description: Date data is computed
       agg_rating_score:
         type: string
-        description: 
+        description: >-
+          The star rating score for this security  
+          1 - SELL 
+          5 – STRONG BUY 
       total_number_of_ratings:
         type: string
         description: Total BEARISH and BULLISH ratings for a company/ticker
@@ -891,11 +956,11 @@ definitions:
       date:
         type: string
         format: yyyy-mm-dd
-        description: Date converted from create_date field
+        description: Date converted from created_on field
       time:
         type: string
         format: hh:mm:ss
-        description: Time converted from create_date field
+        description: Time converted from created_on field
       updated:
         type: integer
         format: int64
@@ -930,7 +995,7 @@ definitions:
         description: Name of user/page
       is_verified:
         type: boolean
-        description:if the profile is verified (currently not used) 
+        description: if the profile is verified (currently not used) 
       profile_title:
         type: string
         description: Title of profile
@@ -974,10 +1039,18 @@ definitions:
       id:
         type: string
         description: Unique identifier
+      date:
+        type: string
+        format: yyyy-mm-dd
+        description: Date converted from created_datetime field
+      time:
+        type: string
+        format: hh:mm:ss
+        description: Time converted from created_datetime field
       updated:
         type: integer
         format: int64
-        description: unix timestamp utc updated in benzinga
+        description: Unix timestamp utc updated in benzinga
       profile_performance_id:
         type: string
         description: Vetr's unique identifier
@@ -994,8 +1067,7 @@ definitions:
       average_return_total:
         type: string
         format: float
-        description: Total average return (since 
-          signup)
+        description: Total average return (since signup)
       average_return_1m:
         type: string
         description: 1 month return
@@ -1056,7 +1128,7 @@ definitions:
       created_datetime:
         type: string
         format: ISO date
-        description: Vetr's created date/time 
+        description: Vetr's created date/time
       return_percentile_1y:
         type: string
         description: Percentile this person's 1y returns falls into
@@ -1075,11 +1147,11 @@ definitions:
       date:
         type: string
         format: yyyy-mm-dd
-        description: Date converted from create_date field
+        description: Date converted from created_on field
       time:
         type: string
         format: hh:mm:ss
-        description: Time converted from create_date field
+        description: Time converted from created_on field
       updated:
         type: integer
         format: int64
@@ -1118,11 +1190,11 @@ definitions:
       date:
         type: string
         format: yyyy-mm-dd
-        description: Date converted from create_date field
+        description: Date converted from created_on field
       time:
         type: string
         format: hh:mm:ss
-        description: Time converted from create_date field
+        description: Time converted from created_one field
       ticker:
         type: string
         description: Ticker symbol of public company
@@ -1317,4 +1389,82 @@ definitions:
       commentary:
         type: string
         description: Any additional statements issued with rating
+
+  vetr_upvote_downvote:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique identifier
+      date:
+        type: string
+        format: yyyy-mm-dd
+        description: Date converted from created_date field
+      time:
+        type: string
+        format: hh:mm:ss
+        description: Time converted from created_date field
+      updated:
+        type: integer
+        format: int64
+        description: unix timestamp utc updated in benzinga
+      vote_detail_id:
+        type: string
+        description: Vetr's unique identifier
+      entry_id:
+        type: string
+        description: >-
+          Entry Id references posts
+          for example, value of `recommendation:70515
+          references recommendation with recommendation_id 70515
+          id of article:123 references a article with id 123
+      profile_slug:
+        type: string
+        description: User that cast this vote
+      vote_type:
+        type: string
+        description: value can be UP_VOTE or DOWN_VOTE
+        enum:
+          - UP_VOTE
+          - DOWN_VOTE
+      created_date:
+        type: string
+        format: ISO date
+        description: Vetr's created date/time
+
+  vetr_earned_badges:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique identifier
+      date:
+        type: string
+        format: yyyy-mm-dd
+        description: Date converted from earned_date_time field
+      time:
+        type: string
+        format: hh:mm:ss
+        description: Time converted from earned_date_time field
+      updated:
+        type: integer
+        format: int64
+        description: unix timestamp utc updated in benzinga
+      earned_badge_id:
+        type: string
+        format: int
+        description: Vetr's unique identifier
+      badge_key:
+        type: string
+        description: Identifier of the badge. Badge name as a slug.
+      profile_slug:
+        type: string
+        description: User that earned the badge
+      earned_date_time:
+        type: string
+        format: ISO date
+        description: Vetr's created date/time
+      has_been_emailed:
+        type: boolean
+        description: User has been emailed about the badge
 
