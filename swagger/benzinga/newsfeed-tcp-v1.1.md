@@ -137,74 +137,107 @@ STREAM: {
 }=BZEOT\r\n
 ```
 
-### Data Fields
+### Data Field Definitions
 
-```
-definitions:
 
-  id:
-    type: integer
-    definition: Primary Key and Unique ID of the Story
+##### id:
 
-  title:
-    type: string
-    max-length: 255 chars
-    definition: Title of the Article
+* type: integer
 
-  body:
-    type: string
-    max-length: Unlimited / Varying
-    definition: Body of the Article. The length may be limited, per client setup. Body format may be in HTML or RichText per client setup.
+* definition: Primary Key and Unique ID of the Story
 
-  published:
-    type: string
-    definition: This is the published date of the article. Date will be in GMT. Example: 'Thu Aug 09 2012 19:41:09 GMT+0000 (UTC)'
+##### title:
 
-  updated:
-    type: string
-    definition: This the updated timestamp of the article. This may be updated for a number of reasons that may or may not be apparent to the client. Stories will be pushed on all updates. Date will be in GMT.
-    example: 'Thu Jan 01 1970 00:00:00 GMT+0000 (UTC)'
+* type: string
 
-  status:
-    type: string
-    definition: This is the status of an article. A status of either “Published” or “Removed” will be included with the article. Article updates would only be indicated through a pushed and a client checking the difference in updated times.
-    example: “Published” or “Removed”
+* max-length: 255 chars
 
-  link:
-    type: string
-    definition: Link to publicly available story on Benzinga.com. This field will indicate NULL if a link is not available.
+* definition: Title of the Article
 
-  channels:
-    type: array
-    definition: The Benzinga Channels or categories an article appears in. This array may be blank if no channels exist.
+##### body:
+
+* type: string
+
+* max-length: Unlimited / Varying
+
+* definition: Body of the Article. The length may be limited, per client setup. Body format may be in HTML or RichText per client setup.
+
+##### published:
+
+* type: string
+
+* definition: This is the published date of the article. Date will be in GMT. Example: 'Thu Aug 09 2012 19:41:09 GMT+0000 (UTC)'
+
+##### updated:
+
+* type: string
+
+* definition: This the updated timestamp of the article. This may be updated for a number of reasons that may or may not be apparent to the client. Stories will be pushed on all updates. Date will be in GMT.
+
+* example: 'Thu Jan 01 1970 00:00:00 GMT+0000 (UTC)'
+
+##### status:
+
+* type: string
+
+* definition: This is the status of an article. A status of either “Published” or “Removed” will be included with the article. Article updates would only be indicated through a pushed and a client checking the difference in updated times.
+
+* example: “Published” or “Removed”
+
+##### link:
+
+* type: string
+
+* definition: Link to publicly available story on Benzinga.com. This field will indicate NULL if a link is not available.
+
+##### channels:
+
+* type: array
+
+* definition: The Benzinga Channels or categories an article appears in. This array may be blank if no channels exist.
     example: [‘News’ , ‘Markets’ ]
 
-  tickers:
-    type: array
-    definition: Array of symbols
-    items:
-      type: string
-      description: Ticker symbol
-    example: >- 
-      tickers: [‘F’, ‘GM’]
-       
-  tickers(extended):
-    type: array
-    description: Array of symbol objects
-    items:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The actual ticker symbol
-        primary:
-          type: integer
-          format: boolean
-          description: 1 if primary 0 if not
-        sentiment:
-          type: integer
-          description: Sentiment for this symbol as a result of this story (if available). -4 - 4 scale. FALSE if not available.
-      example: >-
-        tickers: [ { name: 'F', primary: 1, sentiment: 1 } ] 
+##### tickers:
 
-```
+* type: array
+
+* definition: Array of symbols. This field will be an array of symbol objects if extended tickers is turned on
+    
+* items:
+  * type: string
+  * description: Ticker symbol
+  * example: tickers: [‘F’, ‘GM’]
+       
+##### tickers(extended):
+
+* type: array
+
+* description: Array of symbol objects.
+
+* items:
+
+  * type: object
+
+  * properties:
+
+    * name:
+
+      * type: string
+
+      * description: Ticker symbol
+
+    * primary:
+
+      * type: integer
+
+      * format: boolean
+
+      * description: 1 if primary 0 if not
+
+    * sentiment:
+
+      * type: integer
+
+      * description: Sentiment for this symbol as a result of this story (if available). -4 - 4 scale. FALSE if not available.
+
+      * example: tickers: [ { name: 'F', primary: 1, sentiment: 1 } ] 
