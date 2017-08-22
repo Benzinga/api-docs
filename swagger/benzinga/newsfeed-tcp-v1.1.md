@@ -112,7 +112,7 @@ STREAM: {
 }=BZEOT\r\n
 ```
 
-**EXAMPLE (with extended tickers):**
+**Example (with extended tickers):**
 
 ```
 STREAM: {
