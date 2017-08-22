@@ -7,6 +7,7 @@ info:
     The Benzinga Corporate Logo API is designed to be flexible with client
     sizing requirements. Custom filters can be applied to resize the logos and
     each logo returns a variety of identifiers like isin and cusip.
+host: api.benzinga.com
 basePath: /api/v1
 schemes:
   - https
