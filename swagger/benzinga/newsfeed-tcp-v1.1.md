@@ -5,7 +5,7 @@
 All lines endings will be in the expected format:
 
 ```
-=BZEOT\r\n`
+=BZEOT\r\n
 ```
 
 ## Commands
