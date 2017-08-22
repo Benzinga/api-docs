@@ -45,7 +45,7 @@ SERVER> CONNECTED=BZEOT\r\n
 ```
 
 
-### NO Authentication Received
+### No Authentication Received
 
 Clients will receive the following disconnect message if no authentication message is received:
 
@@ -105,8 +105,8 @@ STREAM: {
   updated: 'Thu Jan 01 1970 00:00:00 GMT+0000 (UTC)',   // Revision Date, GMT
   link: 'http://www.benzinga.com/link/to/story',        // Link to Article
   channel: [                                            // Array of Channels
-      'CHANNEL',
-      'CHANNELX'
+    'CHANNEL',
+    'CHANNELX'
   ],
   tickers: ['A', 'B', 'C']                              // Array of Tickers
 }=BZEOT\r\n
@@ -131,7 +131,7 @@ STREAM: {
     {	
       name: 'F',	                                      // Ticker Symbol
       primary: 1,                                       // Denotes Primary Status (0, 1)
-      sentiment: false	                                // Sentiment (­-4 to 4) if available
+      sentiment: false	                                // Sentiment (-4 to 4) if available
     }
   ]
 }=BZEOT\r\n
