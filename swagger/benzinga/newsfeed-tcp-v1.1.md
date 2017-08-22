@@ -116,22 +116,22 @@ STREAM: {
 
 ```
 STREAM: {
-  id: 1234567,	                                        // Unique ID of Story
-  title: 'TITLE OF STORY',	                            // Title of Article
+  id: 1234567,                                          // Unique ID of Story
+  title: 'TITLE OF STORY',                              // Title of Article
   body: 'BODY OF STORY',                                // Body of Article
-  status: ‘Published’,	                                // Published or Removed
+  status: ‘Published’,                                  // Published or Removed
   published: 'Thu Aug 09 2012 19:41:09 GMT+0000 (UTC)', // Published Date, GMT
-  updated: 'Thu Jan 01 1970 00:00:00 GMT+0000 (UTC)',	  // Revision Date, GMT
-  link: ‘http://www.benzinga.com/link/to/story’,	      // Link to the Article
-  channels: [	                                          // Array of Channels
+  updated: 'Thu Jan 01 1970 00:00:00 GMT+0000 (UTC)',   // Revision Date, GMT
+  link: ‘http://www.benzinga.com/link/to/story’,        // Link to the Article
+  channels: [                                           // Array of Channels
     'CHANNEL' ,
     ‘CHANNELX’
   ],
   tickers: [                                            // Array of Tickers
     {	
-      name: 'F',	                                      // Ticker Symbol
+      name: 'F',                                        // Ticker Symbol
       primary: 1,                                       // Denotes Primary Status (0, 1)
-      sentiment: false	                                // Sentiment (-4 to 4) if available
+      sentiment: false                                  // Sentiment (-4 to 4) if available
     }
   ]
 }=BZEOT\r\n
